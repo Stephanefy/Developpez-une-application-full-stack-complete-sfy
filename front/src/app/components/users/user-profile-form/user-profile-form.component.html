@@ -1,0 +1,27 @@
+<form class="userInfo-form" #userInfoForm="ngForm" (ngSubmit)="submitForm(userInfoForm)">
+  <mat-form-field appearance="outline" class="form-group" style="width: 281px;">
+    <mat-label>Nom d'utilisateur</mat-label>
+    <input
+      class="form-control"
+      matInput
+      id="username"
+      name="username"
+      [(ngModel)]="userInfoData!.username"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="form-group" style="width: 281px;">
+    <mat-label>Email</mat-label>
+    <input
+      class="form-control"
+      matInput
+      id="email"
+      name="email"
+      [(ngModel)]="userInfoData!.email"
+      required
+    />
+  </mat-form-field>
+  <button mat-flat-button>
+    Sauvegarder
+  </button>
+</form>

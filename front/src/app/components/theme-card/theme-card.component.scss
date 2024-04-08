@@ -1,0 +1,37 @@
+.theme-card {
+    height: 161px;
+    border: none;
+    background-color: #F5F5F5;
+    box-shadow: none;
+    padding: 1rem;
+
+    .theme-card-title{
+        width: 100%;
+    }
+
+    .theme-card-subtitle {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .theme-card-content{
+        display: flex;
+        justify-content: center;
+    }
+
+    .theme-card-button-group {
+        display: flex;
+        justify-content: center;
+
+        button {
+            margin: auto;
+            background-color: #7763C5;
+            color: #fff;
+        }
+    }
+
+
+}
+

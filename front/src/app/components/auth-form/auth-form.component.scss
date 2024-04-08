@@ -1,0 +1,18 @@
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .form-group {
+        width: 250px;
+        margin: auto;
+    }
+
+    
+    button {
+        width: 50%;
+        margin: auto;
+        background-color: #7763C5;
+        color: #fff;
+    }
+}

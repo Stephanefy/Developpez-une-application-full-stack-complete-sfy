@@ -1,0 +1,13 @@
+<section class="articles">
+    <div class="article-buttons-group">
+        <button mat-flat-button routerLink="/articles/create">Créer un article</button>
+        <button class="sort-button">Trier par</button>
+    </div>
+    <div class="center">
+        <div *ngFor="let article of articles$ | async">
+            <app-article-card [article]="article"></app-article-card>
+
+        </div>
+  
+    </div>
+</section>

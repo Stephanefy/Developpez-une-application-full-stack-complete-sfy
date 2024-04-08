@@ -1,0 +1,63 @@
+main {
+    text-align: center;
+    margin-top: 2rem;
+
+    section {
+        margin: auto;
+        width: 70%;
+    }
+
+    button {
+        margin: 2rem 0;
+        background-color: transparent;
+        color: #A40F0F;
+        border: none;
+    }
+
+
+    .user-subscriptions {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* This creates two columns of equal width */
+        gap: 20px; /* Optional: Adds space between the columns */
+
+        .theme-card {
+            height: 161px;
+            border: none;
+            background-color: #F5F5F5;
+            box-shadow: none;
+            padding: 1rem;
+        
+            .theme-card-title{
+                width: 100%;
+            }
+        
+            .theme-card-subtitle {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        
+            .theme-card-content{
+                display: flex;
+                justify-content: center;
+                text-align: left;
+            }
+        
+            .theme-card-button-group {
+                display: flex;
+                justify-content: center;
+        
+                button {
+                    margin: auto;
+                    background-color: #7763C5;
+                    color: #fff;
+                }
+            }
+        
+        
+        }
+        
+        
+    }
+}

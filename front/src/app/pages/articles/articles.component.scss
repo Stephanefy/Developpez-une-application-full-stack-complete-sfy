@@ -1,0 +1,27 @@
+.articles {
+    padding: 3rem 2rem;
+
+    .article-buttons-group {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    button {
+        background-color: #7763C5;
+        color: #fff;
+    }
+
+    .sort-button {
+        border: none;
+        background-color: transparent;
+        color: #000;
+    }
+}
+
+.center {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* This creates two columns of equal width */
+    gap: 20px; /* Optional: Adds space between the columns */
+  }
+  

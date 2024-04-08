@@ -1,0 +1,23 @@
+<main>
+    <article class="article-details">
+        <h1>{{ article.title }}</h1>
+        <div class="article-details-subtitle">
+            <p>{{ article.publicationDate | date: 'longDate' : '+0000' }}</p>
+            <p>{{ article.author.username }}</p>
+            <ul>
+                <li *ngFor="let theme of article.themes">
+                    {{ theme.name }}
+                </li>
+            </ul>
+        </div>
+        <p class="article-content">{{ article.content }}</p>
+        <hr class="separator" style="margin-top: 3rem;">
+        <section>
+            <h3>Commentaires</h3>
+            <!-- <app-comments [articleId]="article.id"></app-comments> -->
+        </section>
+        <section>
+            <app-comment-form [articleId]="article.id"></app-comment-form>
+        </section>
+    </article>
+</main>

@@ -1,0 +1,19 @@
+.article-card {
+    max-height: 161px;
+    border: none;
+    background-color: #F5F5F5;
+    box-shadow: none;
+    padding: 1rem;
+
+    .article-card-title{
+        width: 100%;
+    }
+
+    .article-card-subtitle {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
