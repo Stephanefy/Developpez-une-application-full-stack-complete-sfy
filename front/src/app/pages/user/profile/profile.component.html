@@ -1,23 +1,36 @@
 <main>
   <section>
     <h1>Profil utilisateur</h1>
-    <app-user-profile-form [user]="user$ | async"></app-user-profile-form>
-    <button>Se déconnecter</button>
-    <hr>
+    <app-user-profile-form [user]="currentUser"></app-user-profile-form>
+    <button class="logout-button" (click)="logout()" [disabled]="!(auth$ | async)?.isAuthenticated">Se déconnecter</button>
+    <hr />
   </section>
   <section class="user-subscriptions">
-    <div *ngFor="let subscription of subscriptions$ | async">
+    <h2>Abonnements</h2>
+    <div
+    class="user-subscriptions-list"
+    >
+      <div
+        *ngFor="let subscription of subscriptions$ | async"
+        
+      >
         <mat-card class="theme-card">
-            <mat-card-header>
-              <mat-card-title class="theme-card-title">{{ subscription.name }}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content class="theme-card-content">
-              {{ subscription.description | slice : 0 : 500
-              }}{{ subscription.description.length > 500 ? "..." : "" }}
-            </mat-card-content>
-            <div class="theme-card-button-group">
-                  <button mat-flat-button>Se désabonner</button>
-            </div>
-          </mat-card>    </div>
+          <mat-card-header>
+            <mat-card-title class="theme-card-title">{{
+              subscription.name
+            }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="theme-card-content">
+            {{ subscription.description | slice : 0 : 500
+            }}{{ subscription.description.length > 500 ? "..." : "" }}
+          </mat-card-content>
+          <div class="theme-card-button-group">
+            <button mat-flat-button (click)="unsubscribe(subscription.id)" >
+              Se désabonner
+            </button>
+          </div>
+        </mat-card>
+      </div>
+    </div>
   </section>
 </main>

@@ -1,23 +1,25 @@
-<form class="auth-form">
+<form class="auth-form" [formGroup]="authForm" (ngSubmit)="submit()">
     <span *ngIf="isLogin" >Email ou nom d'utilisateur</span>
     <mat-form-field *ngIf="isLogin"class="form-group" appearance="outline">
         <mat-label for="usernameOrEmail" hidden>email or username</mat-label>
-        <input matInput type="text" class="form-control" id="usernameOrEmail" />
+        <input matInput formControlName="usernameOrEmail" type="text" class="form-control" id="usernameOrEmail" />
     </mat-form-field>
     <span *ngIf="!isLogin">Nom d'utilisateur</span>
     <mat-form-field *ngIf="!isLogin" class="form-group" appearance="outline">
         <mat-label for="username" hidden>Nom d'utilisateur</mat-label>
-        <input matInput type="text" class="form-control" id="username" />
+        <input matInput formControlName="username" type="text" class="form-control" id="username" />
     </mat-form-field>
     <span *ngIf="!isLogin" >Adresse e-mail</span>
     <mat-form-field *ngIf="!isLogin" class="form-group" appearance="outline">
         <mat-label for="email" hidden>Adresse e-mail</mat-label>
-        <input matInput type="email" class="form-control" id="email" />
+        <input matInput formControlName="email" type="email" class="form-control" id="email" />
     </mat-form-field>
     <span>Mot de passe</span>
     <mat-form-field class="form-group" appearance="outline">
         <mat-label for="password" hidden>Mot de passe</mat-label>
-        <input matInput type="password" class="form-control" id="password" />
+        <input matInput formControlName="password" type="password" class="form-control" id="password" />
     </mat-form-field>
-    <button mat-flat-button color="#7763C5" type="submit" class="btn btn-primary">Submit</button>
+    <button mat-flat-button color="#7763C5" type="submit" class="btn btn-primary">
+        {{ isLogin ? 'Se connecter' : 'S\'inscrire' }}
+    </button>
 </form>

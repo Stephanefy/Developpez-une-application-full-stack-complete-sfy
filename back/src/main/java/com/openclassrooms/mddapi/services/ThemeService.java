@@ -11,7 +11,7 @@ public interface ThemeService {
     Optional<Theme> getThemeById(String id);
     Theme updateTheme(String id, Theme theme);
 
-    void subscribe(Long userId, Long themeId);
+    void subscribe(Long themeId, Long userId);
 
     void unsubscribe(Long userId, Long themeId);
     boolean deleteTheme(String id);

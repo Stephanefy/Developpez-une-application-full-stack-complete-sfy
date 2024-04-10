@@ -8,6 +8,7 @@ import { ThemesComponent } from './pages/themes/themes.component';
 import { DetailsComponent } from './pages/articles/details/details.component';
 import { CreateComponent } from './pages/articles/create/create.component';
 import { ProfileComponent } from './pages/user/profile/profile.component';
+import { CanActivateGuard } from './guards/can-activate.guard';
 
 // consider a guard combined with canLoad / canActivate route option
 // to manage unauthenticated user to access private routes
@@ -15,11 +16,11 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'connexion', component: ConnexionComponent },
-  { path: 'articles', component: ArticlesComponent },
-  { path: 'themes', component: ThemesComponent },
-  { path: 'articles/create', component: CreateComponent },
-  { path: 'articles/:id', component: DetailsComponent },
-  { path: 'user/profile', component: ProfileComponent },
+  { path: 'articles', component: ArticlesComponent, canActivate: [CanActivateGuard] },
+  { path: 'themes', component: ThemesComponent, canActivate: [CanActivateGuard] },
+  { path: 'articles/create', component: CreateComponent, canActivate: [CanActivateGuard] },
+  { path: 'articles/:id', component: DetailsComponent, canActivate: [CanActivateGuard] },
+  { path: 'user/profile', component: ProfileComponent, canActivate: [CanActivateGuard] },
 
 ];
 

@@ -20,9 +20,9 @@ export class DetailsComponent implements OnInit {
 
     let id = this.route.snapshot.params['id'];
     this.articleApiService.detail(id).subscribe((article) => {
+      console.log(article)
       this.article = article;
     });
-
   }
 
 }

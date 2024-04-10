@@ -27,11 +27,18 @@ import { CommentFormComponent } from './components/comments/comment-form/comment
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateFormComponent } from './components/articles/create-form/create-form.component';
 import { UserProfileFormComponent } from './components/users/user-profile-form/user-profile-form.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from './state/auth.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './state/auth.effects';
 
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, InscriptionComponent, ConnexionComponent, NavbarComponent, AuthFormComponent, ArticlesComponent, ArticleCardComponent, ThemesComponent, ThemeCardComponent, CreateComponent, DetailsComponent, ProfileComponent, CommentFormComponent, CreateFormComponent, UserProfileFormComponent],
   imports: [
+    StoreModule.forRoot({ auth: authReducer }),
+    EffectsModule.forRoot([AuthEffects]),
     BrowserModule,
     CommonModule,
     FormsModule,
@@ -44,7 +51,8 @@ import { UserProfileFormComponent } from './components/users/user-profile-form/u
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

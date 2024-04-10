@@ -14,11 +14,23 @@ main {
         border: none;
     }
 
+    .logout-button {
+        cursor: pointer;
+    }
+
 
     .user-subscriptions {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* This creates two columns of equal width */
-        gap: 20px; /* Optional: Adds space between the columns */
+        padding: 2rem;
+      
+        h2 {
+            width: 100%;
+        }
+
+        .user-subscriptions-list{
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* This creates two columns of equal width */
+            gap: 20px;  
+        }
 
         .theme-card {
             height: 161px;

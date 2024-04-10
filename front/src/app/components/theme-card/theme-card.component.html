@@ -7,6 +7,6 @@
     }}{{ theme.description.length > 500 ? "..." : "" }}
   </mat-card-content>
   <div class="theme-card-button-group">
-        <button mat-flat-button>S'abonner</button>
+        <button mat-flat-button (click)="subscribe(theme.id)">S'abonner</button>
   </div>
 </mat-card>

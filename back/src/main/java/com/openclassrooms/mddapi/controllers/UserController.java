@@ -4,6 +4,7 @@ import com.openclassrooms.mddapi.domain.dtos.theme.ThemeDTO;
 import com.openclassrooms.mddapi.domain.dtos.user.CreateUserDTO;
 import com.openclassrooms.mddapi.domain.dtos.user.UserDTO;
 import com.openclassrooms.mddapi.domain.models.User;
+import com.openclassrooms.mddapi.services.ThemeService;
 import com.openclassrooms.mddapi.services.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -25,6 +26,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ThemeService themeService;
 
 
     public UserController() {
@@ -92,5 +96,21 @@ public class UserController {
 
 
         return ResponseEntity.ok().body(subscriptions);
+    }
+
+    @PostMapping("/{id}/subscribe/{userId}")
+    public ResponseEntity<?> subscribeToTheme(@PathVariable ("id") String themeId, @PathVariable ("userId") String userId) {
+
+        themeService.subscribe(Long.valueOf(themeId), Long.valueOf(userId));
+
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}/unsubscribe/{userId}")
+    public ResponseEntity<?> unsubscribeToTheme(@PathVariable ("id") String themeId, @PathVariable ("userId") String userId) {
+
+        themeService.unsubscribe(Long.valueOf(themeId), Long.valueOf(userId));
+
+        return ResponseEntity.ok().build();
     }
 }

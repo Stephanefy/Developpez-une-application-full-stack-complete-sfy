@@ -1,8 +1,8 @@
 -- Insert users
 INSERT INTO `users` (email, password, username) VALUES
-('user1@example.com', 'password1', 'userone'),
-('user2@example.com', 'password2', 'usertwo'),
-('user3@example.com', 'password3', 'userthree');
+('user1@example.com', '$2y$10$.2UcDDirI7nscjlT2/STK.VBrc4GXVBwMkPMS1Ve40E66wWA4togO', 'userone'),
+('user2@example.com', '$2y$10$KbvbUyAF20p6iBo29Z/qy.uLCS1TSnpo5cWf51FYBEWXkEY47b306', 'usertwo'),
+('user3@example.com', '$2y$10$r2naUo29JtOb9vZa2pGFUOj6P2y29wgSCV/Npu0UbQqbAKOrmDdg2', 'userthree');
 
 -- Insert themes
 INSERT INTO `themes` (name, description) VALUES
@@ -51,7 +51,7 @@ INSERT INTO `article_themes` (article_id, theme_id) VALUES
 (3, 3);
 
 -- Insert comments (adjust article_id and author_id as needed)
-INSERT INTO `comments` (article_id, author_id, content, publication_date) VALUES
+INSERT INTO `comments` ( article_id, author_id, content, publication_date) VALUES
 (1, 2, 'Great introduction to Java!', NOW()),
 (2, 1, 'I love Spring Framework!', NOW()),
 (3, 3, 'Angular has been my go-to for web development.', NOW());

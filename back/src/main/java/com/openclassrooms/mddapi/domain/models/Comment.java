@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 
-
 @Getter
 @Setter
 @Entity
@@ -17,9 +16,9 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id", nullable = false)
-    private Article article;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "article_id", nullable = false)
+//    private Article article;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)
@@ -31,6 +30,10 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date publicationDate = new Date();
+
+    @ManyToOne
+    @JoinColumn(name = "article_id")
+    private Article article;
 
     // Constructeurs, getters et setters
 }

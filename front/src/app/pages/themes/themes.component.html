@@ -4,7 +4,7 @@
     </div>
     <div class="center">
         <div *ngFor="let theme of themes$ | async">
-            <app-theme-card [theme]="theme"></app-theme-card>
+            <app-theme-card [theme]="theme" (subscribeSuccessEmitter)="setSubscribeStatusEvent($event)"></app-theme-card>
 
         </div>
   

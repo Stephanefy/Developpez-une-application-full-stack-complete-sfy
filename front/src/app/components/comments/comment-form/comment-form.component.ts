@@ -1,6 +1,10 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { CommentApiService } from 'src/app/services/comment-api.service';
+import { selectAuth } from 'src/app/state/auth.selectors';
 
 @Component({
   selector: 'app-comment-form',
@@ -20,27 +24,55 @@ export class CommentFormComponent implements OnInit {
 
   @Input() articleId!: number;
 
+  private authorId!: number;
+
+  public commentForm!: FormGroup 
+
   public comment : {
     content: string,
-    articleId: number,
-    authorId: number
+   
   } = {
     content: '',
-    articleId: 0,
-    authorId: 0
+  
   }
 
 
-  constructor() { }
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private store: Store,
+    private commentApiService: CommentApiService
+  ) { }
 
   ngOnInit(): void {
 
+    this.commentForm = this.fb.group({
+      content: [''],
+    });
+
+    this.store.select(selectAuth).subscribe(value => {
+      //@ts-ignore
+      this.authorId =  value.user!.userId
     
+  });
   }
 
 
   submitForm(form: any): void {
-    console.log(this.comment)
+    const requestData = {
+      content: this.comment.content,
+      authorId: this.authorId
+    }
+
+      this.commentApiService.create(requestData, this.articleId.toString()).subscribe({
+      next: (response) => {
+        console.log(response)
+      },
+      error: (error) => {
+        console.error(error)
+      }
+    })
+
   }
 
 }

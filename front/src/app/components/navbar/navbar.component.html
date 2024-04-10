@@ -2,10 +2,10 @@
   <a routerLink to="/">
     <img src="/assets/logo_p6.png" alt="logo" width="150" />
   </a>
-  <ul class="nav-links">
+  <ul *ngIf="(auth$ | async)?.isAuthenticated" class="nav-links">
     <li><a routerLink="/articles" routerLinkActive="active">Articles</a></li>
     <li><a routerLink="/themes" routerLinkActive="active">Thèmes</a></li>
-    <li>
+    <li *ngIf="(auth$ | async)?.isAuthenticated">
       <a 
       routerLink="/user/profile"
       routerLinkActive="active"

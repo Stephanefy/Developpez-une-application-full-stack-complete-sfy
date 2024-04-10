@@ -11,5 +11,7 @@ public interface UserService {
     User updateUser(Long id, User updatedUser);
     boolean deleteUser(Long id);
     User getUserByUsername(String username);
+
+    User getUserByEmail(String email);
     Set<Theme> getUserSubscriptions(Long userId);
 }

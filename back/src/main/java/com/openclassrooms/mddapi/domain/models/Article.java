@@ -39,5 +39,8 @@ public class Article {
     )
     private Set<Theme> themes = new HashSet<>();
 
+    @OneToMany(mappedBy = "article")
+    private Set<Comment> comments = new HashSet<>();
+
     // Constructeurs, getters et setters
 }

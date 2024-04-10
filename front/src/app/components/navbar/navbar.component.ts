@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-
+import { Store } from '@ngrx/store';
+import { selectAuth } from 'src/app/state/auth.selectors';
 
 @Component({
   selector: 'app-navbar',
@@ -10,9 +11,12 @@ import { filter } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
 
+
+  public auth$ = this.store.select(selectAuth);
   public isUserProfilActive: boolean = false;
 
-  constructor(private router: Router) { }
+
+  constructor(private router: Router, private store: Store) { }
 
   ngOnInit(): void {
 
@@ -22,6 +26,9 @@ export class NavbarComponent implements OnInit {
       //@ts-ignore
       this.isUserProfilActive = event.url.includes('user') ? true : false;
     });
+
+    this.store.select(selectAuth).subscribe(authState => console.log(authState));
+
   }
 
 }

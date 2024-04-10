@@ -1,6 +1,18 @@
 .article-details {
     padding: 3rem 14rem;
 
+    .comment-card-container {
+        list-style-type: none;
+
+        .comment-card {
+            margin-bottom: 1rem;
+            background-color: #F5F5F5;
+            box-shadow: none;
+            border: none;
+            padding: 1rem;
+        }
+    }
+
     .article-details-subtitle {
         width: 30%;
         display: flex;
@@ -22,6 +34,7 @@
                 padding: 0;
             }
         }
+    
 
         .article-content {
             margin-bottom: 10rem;

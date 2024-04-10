@@ -63,21 +63,21 @@ public class ThemeController {
         return ResponseEntity.ok().body(responseBody);
     }
 
-    @PostMapping("/{id}/subscribe/{userId}")
-    public ResponseEntity<?> subscribeToTheme(@PathVariable ("id") String themeId, @PathVariable ("userId") String userId) {
+//    @PostMapping("/{id}/subscribe/{userId}")
+//    public ResponseEntity<?> subscribeToTheme(@PathVariable ("id") String themeId, @PathVariable ("userId") String userId) {
+//
+//        themeService.subscribe(Long.valueOf(userId), Long.valueOf(themeId));
+//
+//        return ResponseEntity.ok().build();
+//    }
 
-        themeService.subscribe(Long.valueOf(userId), Long.valueOf(themeId));
-
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("/{id}/subscribe/{userId}")
-    public ResponseEntity<?> unsubscribeToTheme(@PathVariable ("id") String themeId, @PathVariable ("userId") String userId) {
-
-        themeService.unsubscribe(Long.valueOf(themeId), Long.valueOf(userId));
-
-        return ResponseEntity.ok().build();
-    }
+//    @DeleteMapping("/{id}/unsubscribe/{userId}")
+//    public ResponseEntity<?> unsubscribeToTheme(@PathVariable ("id") String themeId, @PathVariable ("userId") String userId) {
+//
+//        themeService.unsubscribe(Long.valueOf(themeId), Long.valueOf(userId));
+//
+//        return ResponseEntity.ok().build();
+//    }
 
     @PutMapping("/{id}")
     public ResponseEntity<ThemeDTO> updateTheme(@PathVariable String id, @Valid @RequestBody ThemeDTO themeDto) {

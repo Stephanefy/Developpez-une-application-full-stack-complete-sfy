@@ -32,8 +32,6 @@ public class ArticleController {
 
 
     public ArticleController() {
-
-
         this.modelMapper = new ModelMapper();
     }
 

@@ -9,6 +9,7 @@ export interface Article {
     publicationDate: Date
     author: Author
     themes: Theme[]
+    comments: any
 }
 
 

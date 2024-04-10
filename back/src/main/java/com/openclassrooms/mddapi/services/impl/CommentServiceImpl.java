@@ -8,14 +8,15 @@ import com.openclassrooms.mddapi.repository.ArticleRepository;
 import com.openclassrooms.mddapi.repository.CommentRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.services.CommentService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 
 @Service
+@Log4j2
 public class CommentServiceImpl implements CommentService {
 
 
@@ -30,7 +31,9 @@ public class CommentServiceImpl implements CommentService {
 
 
     @Override
-    public Comment addCommentToArticle(Long articleId, Long authorId, Comment comment) {
+    public Comment addCommentToArticle(Long articleId, Long authorId, String content) {
+
+        log.info("comment {}", content);
 
         Optional<User> authorOptional = userRepository.findById(authorId);
         User author = authorOptional.orElseThrow(() -> new NotFoundException("User not found"));
@@ -38,18 +41,22 @@ public class CommentServiceImpl implements CommentService {
         Optional<Article> articleOptional = articleRepository.findById(articleId);
         Article article = articleOptional.orElseThrow(() -> new NotFoundException("Article not found"));
 
+        Comment newComment = new Comment();
+        newComment.setContent(content);
 
-        comment.setAuthor(author);
-        comment.setArticle(article);
+        newComment.setAuthor(author);
+        newComment.setArticle(article);
 
-        return commentRepository.save(comment);
+        commentRepository.save(newComment);
+        article.getComments().add(newComment);
+
+
+        articleRepository.save(article);
+
+
+        return newComment;
     }
 
-    @Override
-    public List<Comment> getCommentsByArticleId(Long articleId) {
-
-        return commentRepository.findByArticleId(articleId);
-    }
 
     @Override
     public Comment getCommentById(Long id) {
