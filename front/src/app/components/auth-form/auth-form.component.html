@@ -1,26 +1,90 @@
 <form class="auth-form" [formGroup]="authForm" (ngSubmit)="submit()">
-    <span *ngIf="isLogin" >Email ou nom d'utilisateur</span>
-    <mat-form-field *ngIf="isLogin"class="form-group" appearance="outline">
-        <mat-label for="usernameOrEmail" hidden>email or username</mat-label>
-        <input matInput formControlName="usernameOrEmail" type="text" class="form-control" id="usernameOrEmail" />
-    </mat-form-field>
-    <span *ngIf="!isLogin">Nom d'utilisateur</span>
-    <mat-form-field *ngIf="!isLogin" class="form-group" appearance="outline">
-        <mat-label for="username" hidden>Nom d'utilisateur</mat-label>
-        <input matInput formControlName="username" type="text" class="form-control" id="username" />
-    </mat-form-field>
-    <span *ngIf="!isLogin" >Adresse e-mail</span>
-    <mat-form-field *ngIf="!isLogin" class="form-group" appearance="outline">
-        <mat-label for="email" hidden>Adresse e-mail</mat-label>
-        <input matInput formControlName="email" type="email" class="form-control" id="email" />
-    </mat-form-field>
-    <span>Mot de passe</span>
-    <mat-form-field class="form-group" appearance="outline">
-        <mat-label for="password" hidden>Mot de passe</mat-label>
-        <input matInput formControlName="password" type="password" class="form-control" id="password" />
-    </mat-form-field>
-    <button mat-flat-button color="#7763C5" type="submit" class="btn btn-primary">
-        {{ isLogin ? 'Se connecter' : 'S\'inscrire' }}
-    </button>
-  
+  <span *ngIf="isLogin">Email ou nom d'utilisateur</span>
+  <mat-form-field
+    *ngIf="isLogin"
+    class="form-group"
+    appearance="outline"
+    hideRequiredMarker="true"
+  >
+    <mat-label for="usernameOrEmail" hidden>email or username</mat-label>
+    <input
+      matInput
+      formControlName="usernameOrEmail"
+      type="text"
+      class="form-control"
+      id="usernameOrEmail"
+    />
+    <mat-error *ngIf="authForm.get('usernameOrEmail')?.hasError('required')"
+      >le nom d'utilisateur ou l'email est requis</mat-error
+    >
+  </mat-form-field>
+  <span *ngIf="!isLogin">Nom d'utilisateur</span>
+  <mat-form-field
+    *ngIf="!isLogin"
+    class="form-group"
+    appearance="outline"
+    hideRequiredMarker="true"
+  >
+    <mat-label for="username" hidden>Nom d'utilisateur</mat-label>
+    <input
+      matInput
+      formControlName="username"
+      type="text"
+      class="form-control"
+      id="username"
+    />
+    <mat-error *ngIf="authForm.get('username')?.hasError('required')"
+      >le nom d'utilisateur est requis</mat-error
+    >
+  </mat-form-field>
+  <span *ngIf="!isLogin">Adresse e-mail</span>
+  <mat-form-field
+    *ngIf="!isLogin"
+    class="form-group"
+    appearance="outline"
+    hideRequiredMarker="true"
+  >
+    <mat-label for="email" hidden>Adresse e-mail</mat-label>
+    <input
+      matInput
+      formControlName="email"
+      type="email"
+      class="form-control"
+      id="email"
+    />
+    <mat-error *ngIf="authForm.get('email')?.hasError('required')"
+      >l'email est requis</mat-error
+    >
+    <mat-error *ngIf="authForm.get('email')?.hasError('email')"
+      >Entrez un email valide</mat-error
+    >
+  </mat-form-field>
+  <span>Mot de passe</span>
+  <mat-form-field
+    class="form-group"
+    appearance="outline"
+    hideRequiredMarker="true"
+  >
+    <mat-label for="password" hidden>Mot de passe</mat-label>
+    <input
+      matInput
+      formControlName="password"
+      type="password"
+      class="form-control"
+      id="password"
+    />
+    <mat-error *ngIf="authForm.get('password')?.hasError('minlength')"
+      >Le mot de passe doit faire au moins 8 caractères</mat-error
+    >
+    <mat-error *ngIf="authForm.get('password')?.hasError('pattern')"
+      >Le mot de passe doit contenir chiffre, - lettre minuscule, - lettre
+      majuscule, - caractère spécial.
+    </mat-error>
+    <mat-error *ngIf="authForm.get('password')?.hasError('required')"
+    >Le mot de passe est requis</mat-error
+  >
+  </mat-form-field>
+  <button mat-flat-button color="#7763C5" type="submit" class="btn btn-primary">
+    {{ isLogin ? "Se connecter" : "S'inscrire" }}
+  </button>
 </form>

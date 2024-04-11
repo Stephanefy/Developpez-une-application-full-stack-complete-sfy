@@ -1,7 +1,7 @@
 <main>
   <section>
     <h1>Profil utilisateur</h1>
-    <app-user-profile-form [user]="currentUser"></app-user-profile-form>
+    <app-user-profile-form [user]="currentUser" (updateSuccessEmitter)="updateStatusEvent($event)"></app-user-profile-form>
     <button class="logout-button" (click)="logout()" [disabled]="!(auth$ | async)?.isAuthenticated">Se déconnecter</button>
     <hr />
   </section>

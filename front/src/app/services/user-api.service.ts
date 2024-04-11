@@ -24,7 +24,11 @@ export class UserApiService {
     return this.httpClient.get<User>(`${this.baseUrl}${this.path}/${id}`);
   }
 
-  public getSubscriptions(id: string): Observable<Theme[]> {
+  public update(id: number, requestBody: {username: string, email: string}): Observable<User> {
+    return this.httpClient.put<User>(`${this.baseUrl}${this.path}/${id}`, requestBody);
+  }
+
+  public getSubscriptions(id: number): Observable<Theme[]> {
     return this.httpClient.get<Theme[]>(`${this.baseUrl}${this.path}/subscriptions/${id}`).pipe(
       tap(subscriptions => this.subscriptionsSubject.next(subscriptions))
     );

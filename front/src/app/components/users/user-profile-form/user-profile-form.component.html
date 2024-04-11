@@ -1,27 +1,33 @@
-<form class="userInfo-form" #userInfoForm="ngForm" (ngSubmit)="submitForm(userInfoForm)">
+<form class="userInfo-form" [formGroup]="userInfoForm" (ngSubmit)="submitForm(userInfoForm)">
   <mat-form-field appearance="outline" class="form-group" style="width: 281px;">
     <mat-label>Nom d'utilisateur</mat-label>
     <input
+      type="text"
       class="form-control"
       matInput
       id="username"
-      name="username"
-      [(ngModel)]="userInfoData!.username"
+      formControlName="username"
       required
     />
+    <mat-error *ngIf="userInfoForm.get('username')?.hasError('required') && userInfoForm.get('username')?.touched">le nom d'utilisateur est requis</mat-error>
+    <mat-error *ngIf="userInfoForm.get('username')?.hasError('minlength')">le nom d'utilisateur doit au moins faire 4 caractères</mat-error>
   </mat-form-field>
   <mat-form-field appearance="outline" class="form-group" style="width: 281px;">
     <mat-label>Email</mat-label>
     <input
+      type="email"
       class="form-control"
       matInput
       id="email"
-      name="email"
-      [(ngModel)]="userInfoData!.email"
+      formControlName="email"
       required
     />
+    <mat-error *ngIf="userInfoForm.get('email')?.hasError('required')">L'email est requis</mat-error>
+    <mat-error *ngIf="userInfoForm.get('email')">Le format de l'email n'est pas valide</mat-error>
   </mat-form-field>
-  <button mat-flat-button>
-    Sauvegarder
-  </button>
+  <div style="margin-top: 2rem">
+      <button mat-flat-button>
+        Sauvegarder
+      </button>
+  </div>
 </form>

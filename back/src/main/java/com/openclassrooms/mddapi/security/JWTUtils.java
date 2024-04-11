@@ -25,6 +25,7 @@ public class JWTUtils {
         return Jwts.builder()
                 .setSubject(email)
                 .setIssuedAt(Date.from(now))
+                .claim("username", username)
                 .claim("userId", userId)
                 .setExpiration(Date.from(now.plus(MINUTES, ChronoUnit.MINUTES)))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)

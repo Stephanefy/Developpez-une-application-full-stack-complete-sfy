@@ -18,7 +18,6 @@ export class ProfileComponent implements OnInit {
 
 
   // public user$ = new Observable();
-  public user$: Observable<User> = this.userApiService.detail("1");
   public auth$ = this.store.select(selectAuth);
   public subscriptions$!: Observable<Theme[]>;
   //TODO FIX THIS TYPE ISSUE
@@ -37,7 +36,7 @@ export class ProfileComponent implements OnInit {
      
       this.currentUser = value.user!
     );
-    this.subscriptions$ = this.userApiService.getSubscriptions(this.currentUser.userId.toString());
+    this.subscriptions$ = this.userApiService.getSubscriptions(this.currentUser.userId);
 
     this.subscriptions$.pipe(
       tap(console.log)
@@ -47,7 +46,7 @@ export class ProfileComponent implements OnInit {
   unsubscribe(themeId: number): void {
     this.userApiService.unsubscribe(themeId, 1).subscribe({
       next: (response) => {
-        this.subscriptions$ = this.userApiService.getSubscriptions(this.currentUser.userId.toString());
+        this.subscriptions$ = this.userApiService.getSubscriptions(this.currentUser.userId);
         this.matSnackBar.open('Désabonnement enregistré', 'Fermer', {
           duration: 2000,
           panelClass: ['custom-snack-bar']
@@ -61,5 +60,14 @@ export class ProfileComponent implements OnInit {
 
   logout(): void {
     this.store.dispatch(logout());
+  }
+
+  updateStatusEvent(status: boolean) {
+    if(status) {
+      this.matSnackBar.open('Informations mis à jour', 'Fermer', {
+        duration: 2000,
+        panelClass: ['custom-snack-bar']
+      });
+    }
   }
 }

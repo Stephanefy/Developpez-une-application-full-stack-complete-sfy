@@ -2,6 +2,7 @@ package com.openclassrooms.mddapi.controllers;
 
 import com.openclassrooms.mddapi.domain.dtos.theme.ThemeDTO;
 import com.openclassrooms.mddapi.domain.dtos.user.CreateUserDTO;
+import com.openclassrooms.mddapi.domain.dtos.user.UpdateDTO;
 import com.openclassrooms.mddapi.domain.dtos.user.UserDTO;
 import com.openclassrooms.mddapi.domain.models.User;
 import com.openclassrooms.mddapi.services.ThemeService;
@@ -59,11 +60,13 @@ public class UserController {
 
     // Update user details
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO updateUserDto) {
+    public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @Valid @RequestBody UpdateDTO updateUserDto) {
         log.info("Updating user {}: {}", id, updateUserDto);
 
         User userRequest = modelMapper.map(updateUserDto, User.class);
-        User updatedUser = userService.updateUser(id, userRequest);
+
+        log.info("after mapping {}", userRequest);
+        User updatedUser = userService.updateUser(Long.valueOf(id), userRequest);
 
         if (updatedUser == null) {
             return ResponseEntity.notFound().build();

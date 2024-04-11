@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of, throwError } from 'rxjs';
 
 
 /**
@@ -23,13 +24,15 @@ export class StorageService {
   }
 
   // Get an item from local storage
-  getItem<T>(key: string): T | null {
+  getItem<T>(key: string): Observable<T>{
     try {
       const item = localStorage.getItem(key);
-      return item ? JSON.parse(item) : null;
+      if (item === null) {
+        return throwError(() => new Error(`Item not found: ${key}`));
+      }
+      return of(JSON.parse(item) as T);
     } catch (err) {
-      console.error('Error getting data from localStorage', err);
-      return null;
+      return throwError(() => new Error('Error getting data from localStorage'));
     }
   }
 

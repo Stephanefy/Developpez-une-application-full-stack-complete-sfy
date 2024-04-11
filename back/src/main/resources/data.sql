@@ -1,8 +1,8 @@
 -- Insert users
 INSERT INTO `users` (email, password, username) VALUES
-('user1@example.com', '$2y$10$.2UcDDirI7nscjlT2/STK.VBrc4GXVBwMkPMS1Ve40E66wWA4togO', 'userone'),
-('user2@example.com', '$2y$10$KbvbUyAF20p6iBo29Z/qy.uLCS1TSnpo5cWf51FYBEWXkEY47b306', 'usertwo'),
-('user3@example.com', '$2y$10$r2naUo29JtOb9vZa2pGFUOj6P2y29wgSCV/Npu0UbQqbAKOrmDdg2', 'userthree');
+('user1@example.com', '$2a$10$8Bq6/tTrGlcoY1fjrc2o8O4vMlE6f0UdWTaoNrEd9z.jHFSS.Zblq', 'userone'),
+('user2@example.com', '$2a$10$P14rGXWtdQgy7kkQuaTBnO8BUOevtaqk/CO0JGfbdezeQ6LCSgACO', 'usertwo'),
+('user3@example.com', '$2a$10$H0/td/KwTKiZtB1MheejXuRVNFnDQSXwd9LLS6Oqdx72mIIkx.yLW', 'userthree');
 
 -- Insert themes
 INSERT INTO `themes` (name, description) VALUES

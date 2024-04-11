@@ -1,8 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { User } from 'src/app/interfaces/user.interface';
 import { selectAuth } from 'src/app/state/auth.selectors';
-import { StorageService } from '../../../../../.history/src/app/services/local-storage.service_20240410083239';
+import { StorageService } from 'src/app/services/local-storage.service';
+import { UserApiService } from 'src/app/services/user-api.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile-form',
@@ -11,8 +13,12 @@ import { StorageService } from '../../../../../.history/src/app/services/local-s
 })
 export class UserProfileFormComponent implements OnInit {
 
-  @Input() user!: User
-  
+  @Input() user!: User;
+  @Output() updateSuccessEmitter = new EventEmitter<boolean>();
+  public userInfoForm = this.fb.group({
+    username: ['', [Validators.required, Validators.minLength(4)]],
+    email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$/)]],
+  });
 
   public userInfoData = {
     username: '',
@@ -21,25 +27,59 @@ export class UserProfileFormComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private userApiService: UserApiService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
-    console.log(this.user.email)
     this.store.select(selectAuth).subscribe(value => {
       if (value.user) {
-        this.userInfoData.username = value.user.username;
-        this.userInfoData.email = value.user.sub;
+        // this.userInfoData.username = value.user.username;
+        // this.userInfoData.email = value.user.sub;
+        this.userInfoForm.get('username')?.setValue(value.user.username)
+        this.userInfoForm.get('email')?.setValue(value.user.sub)
+
       }
+
     });
-    // this.store.select(selectAuth).subscribe(value => {
-    //   this.userInfoData.username = value.user?.username!
-    //   this.userInfoData.email = value.user?.email!
-    // })
+  
   }
 
   submitForm(form: any): void {
-    console.log(this.user)
+
+    if (!form.valid) {
+      return;
+    }
+
+    const { username, email } = form.value;
+
+
+    const requestBody = {
+      username,
+      email
+    }
+
+    console.log(requestBody)
+
+    this.userApiService.update(this.user.userId, requestBody).subscribe({
+      next: (response: User) => {
+        this.storageService.getItem<User>('user')!.subscribe((value: User) => {
+          value.username = response.username;
+          value.sub = response.email;
+          this.storageService.setItem('user', value);
+        })
+
+        this.setUpdateSuccess();
+      },
+      error: (error: any) => {
+        console.error('Update user failed', error);
+      }
+    })
+  }
+
+  setUpdateSuccess(): void {
+    this.updateSuccessEmitter.emit(true);
   }
 
 }
