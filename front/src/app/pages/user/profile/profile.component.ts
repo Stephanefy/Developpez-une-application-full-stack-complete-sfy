@@ -22,8 +22,7 @@ export class ProfileComponent implements OnInit {
   public auth$ = this.store.select(selectAuth);
   public subscriptions$!: Observable<Theme[]>;
   //TODO FIX THIS TYPE ISSUE
-  //@ts-ignore
-  public currentUser: User;
+  public currentUser!: User;
 
 
   constructor(
@@ -38,7 +37,6 @@ export class ProfileComponent implements OnInit {
      
       this.currentUser = value.user!
     );
-    //@ts-ignore
     this.subscriptions$ = this.userApiService.getSubscriptions(this.currentUser.userId.toString());
 
     this.subscriptions$.pipe(
@@ -49,7 +47,6 @@ export class ProfileComponent implements OnInit {
   unsubscribe(themeId: number): void {
     this.userApiService.unsubscribe(themeId, 1).subscribe({
       next: (response) => {
-        //@ts-ignore
         this.subscriptions$ = this.userApiService.getSubscriptions(this.currentUser.userId.toString());
         this.matSnackBar.open('Désabonnement enregistré', 'Fermer', {
           duration: 2000,

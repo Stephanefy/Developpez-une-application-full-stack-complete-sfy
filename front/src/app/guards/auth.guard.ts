@@ -8,7 +8,7 @@ import { AuthState } from '../interfaces/auth.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class CanActivateGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
 
   constructor(
     private router: Router,

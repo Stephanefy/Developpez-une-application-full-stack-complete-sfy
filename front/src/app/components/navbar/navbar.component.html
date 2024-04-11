@@ -6,30 +6,27 @@
     <li><a routerLink="/articles" routerLinkActive="active">Articles</a></li>
     <li><a routerLink="/themes" routerLinkActive="active">Thèmes</a></li>
     <li *ngIf="(auth$ | async)?.isAuthenticated">
-      <a 
-      routerLink="/user/profile"
-      routerLinkActive="active"
+      <a routerLink="/user/profile" routerLinkActive="active"
         ><svg
           width="48"
           height="48"
           viewBox="-8 -8 65 65"
           fill="none"
-          style="padding: 2rem;"
           xmlns="http://www.w3.org/2000/svg"
         >
           <circle cx="24" cy="24" r="24" fill="#D9D9D9" />
           <path
             d="M12.0001 36V32.8817C12.0001 31.2276 12.6572 29.6413 13.8268 28.4717C14.9964 27.3021 16.5827 26.645 18.2368 26.645H30.7101C32.3642 26.645 33.9505 27.3021 35.1201 28.4717C36.2897 29.6413 36.9468 31.2276 36.9468 32.8817V36"
-            [ngClass]="{'active': isUserProfilActive}"
-            [ngClass]="{'unActive': !isUserProfilActive}"
+            [ngClass]="{ active: isUserProfilActive }"
+            [ngClass]="{ unActive: !isUserProfilActive }"
             stroke-opacity="0.5"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
           <path
             d="M24.4734 20.4733C21.029 20.4733 18.2368 17.6811 18.2368 14.2367C18.2368 10.7923 21.029 8 24.4734 8C27.9178 8 30.7101 10.7923 30.7101 14.2367C30.7101 17.6811 27.9178 20.4733 24.4734 20.4733Z"
-            [ngClass]="{'active': isUserProfilActive}"
-            [ngClass]="{'unActive': !isUserProfilActive}"
+            [ngClass]="{ active: isUserProfilActive }"
+            [ngClass]="{ unActive: !isUserProfilActive }"
             stroke-opacity="0.5"
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -38,4 +35,18 @@
       </a>
     </li>
   </ul>
+  <button class="menu-button-icon" aria-label="menu-button" (click)="showSideBar()">
+    <svg
+      width="24"
+      height="16"
+      viewBox="0 0 24 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="23.7037" height="2.96296" fill="black" />
+      <rect y="6.51849" width="23.7037" height="2.96296" fill="black" />
+      <rect y="13.037" width="23.7037" height="2.96296" fill="black" />
+    </svg>
+  </button>
 </mat-toolbar>
+

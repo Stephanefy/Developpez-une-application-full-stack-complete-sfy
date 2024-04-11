@@ -1,3 +1,5 @@
+@import '../../../styles/styles.scss';
+
 .nav {
     display: flex;
     justify-content: space-between;
@@ -22,6 +24,10 @@
         stroke: black;
         stroke-width: 2;
     }
+
+    .example-icon {
+        padding: 0 14px;
+    }
 }
 
 .logo {
@@ -32,8 +38,42 @@
 
 .nav-links {
     display: flex;
-    width: 20%;
     justify-content: space-between;
     align-items: center;
     list-style-type: none;
+
+
+    @include respond-to(small) {
+        display: none;
+    }
+
+    @include respond-to(medium) {
+        width: 30%;
+    }
+    
+    @include respond-to(large) {
+        width: 25%;
+    }
+
 }
+
+.menu-button-icon {
+    background-color: transparent;
+    border: none;
+
+
+    @include respond-to(small) {
+        display: block;
+    }
+
+
+    @include respond-to(medium) {
+        display: none;
+    }
+    
+    @include respond-to(large) {
+        display: none;
+    }
+   
+}
+

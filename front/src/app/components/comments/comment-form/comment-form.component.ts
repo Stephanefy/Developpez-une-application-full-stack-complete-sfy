@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute } from '@angular/router';
@@ -23,6 +23,7 @@ encapsulation: ViewEncapsulation.None
 export class CommentFormComponent implements OnInit {
 
   @Input() articleId!: number;
+  @Output() commentSubmitted = new EventEmitter<any>();
 
   private authorId!: number;
 
@@ -41,7 +42,7 @@ export class CommentFormComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private store: Store,
-    private commentApiService: CommentApiService
+    private commentApiService: CommentApiService      
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +52,6 @@ export class CommentFormComponent implements OnInit {
     });
 
     this.store.select(selectAuth).subscribe(value => {
-      //@ts-ignore
       this.authorId =  value.user!.userId
     
   });
@@ -67,6 +67,7 @@ export class CommentFormComponent implements OnInit {
       this.commentApiService.create(requestData, this.articleId.toString()).subscribe({
       next: (response) => {
         console.log(response)
+        this.commentSubmitted.emit(true)
       },
       error: (error) => {
         console.error(error)

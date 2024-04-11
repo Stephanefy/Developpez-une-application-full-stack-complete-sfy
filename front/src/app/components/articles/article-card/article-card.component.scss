@@ -1,9 +1,12 @@
+@import "../../../../styles/styles.scss";
+
 .article-card {
-    max-height: 161px;
+    height: max-content;
     border: none;
     background-color: #F5F5F5;
     box-shadow: none;
     padding: 1rem;
+    cursor: pointer;
 
     .article-card-title{
         width: 100%;
@@ -14,6 +17,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+
+    @include respond-to(small) {
+        margin: 1rem 0;
     }
 }
 

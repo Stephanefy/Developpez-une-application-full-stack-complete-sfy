@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoginRequest } from './interfaces/LoginRequest';
-import { RegisterRequest } from './interfaces/registerRequest';
+import { RegisterRequest } from './interfaces/RegisterRequest';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { selectAuth } from 'src/app/state/auth.selectors';

@@ -29,7 +29,6 @@ export class UserProfileFormComponent implements OnInit {
     this.store.select(selectAuth).subscribe(value => {
       if (value.user) {
         this.userInfoData.username = value.user.username;
-        //@ts-ignore
         this.userInfoData.email = value.user.sub;
       }
     });

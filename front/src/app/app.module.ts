@@ -32,12 +32,17 @@ import { StoreModule } from '@ngrx/store';
 import { authReducer } from './state/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './state/auth.effects';
+import { SortByDatePipe } from './pipes/sortByDatePipe';
+import {MatIconModule} from '@angular/material/icon';
+import { MobileSidebarComponent } from './components/mobile-sidebar/mobile-sidebar.component';
+import { uiReducer } from './state/ui.reducer';
+
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, InscriptionComponent, ConnexionComponent, NavbarComponent, AuthFormComponent, ArticlesComponent, ArticleCardComponent, ThemesComponent, ThemeCardComponent, CreateComponent, DetailsComponent, ProfileComponent, CommentFormComponent, CreateFormComponent, UserProfileFormComponent],
+  declarations: [AppComponent, HomeComponent, InscriptionComponent, ConnexionComponent, NavbarComponent, AuthFormComponent, ArticlesComponent, ArticleCardComponent, ThemesComponent, ThemeCardComponent, CreateComponent, DetailsComponent, ProfileComponent, CommentFormComponent, CreateFormComponent, UserProfileFormComponent, SortByDatePipe, MobileSidebarComponent],
   imports: [
-    StoreModule.forRoot({ auth: authReducer }),
+    StoreModule.forRoot({ auth: authReducer, ui: uiReducer }),
     EffectsModule.forRoot([AuthEffects]),
     BrowserModule,
     CommonModule,
@@ -46,6 +51,7 @@ import { AuthEffects } from './state/auth.effects';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatIconModule,
     MatButtonModule,
     MatToolbarModule,
     MatFormFieldModule,

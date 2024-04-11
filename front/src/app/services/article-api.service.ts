@@ -21,6 +21,10 @@ export class ArticleApiService {
     return this.httpClient.get<Article[]>(this.baseUrl + this.path);
   }
 
+  public allRelatedThemeArticles(id: number) {
+    return this.httpClient.get<Article[]>(`${this.baseUrl}${this.path}/subscribed/${id}`);
+  }
+
   public detail(id: string): Observable<Article> {
     return this.httpClient.get<Article>(`${this.baseUrl}${this.path}/${id}`);
   }

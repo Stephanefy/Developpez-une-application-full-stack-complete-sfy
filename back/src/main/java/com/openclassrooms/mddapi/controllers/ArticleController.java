@@ -55,6 +55,26 @@ public class ArticleController {
         return ResponseEntity.ok().body(articleDtos);
     }
 
+    @GetMapping("/subscribed/{id}")
+    public ResponseEntity<List<ArticleDTO>> getAllRelatedArticlesToSubscription(@PathVariable("id") String id) {
+        List<Article> subscribedThemesArticles = articleService.getAllRelatedThemeArticles(Long.valueOf(id));
+
+
+        List<ArticleDTO> articleDtos = subscribedThemesArticles.stream()
+                .map(article -> {
+                    ArticleDTO dto = modelMapper.map(article, ArticleDTO.class);
+                    UserDTO authorDto = Optional.ofNullable(article.getAuthor())
+                            .map(author -> modelMapper.map(author, UserDTO.class))
+                            .orElse(null);
+                    dto.setAuthor(authorDto);
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
+
+        return ResponseEntity.ok().body(articleDtos);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ArticleDTO> getArticleById(@PathVariable("id") String id) {
 

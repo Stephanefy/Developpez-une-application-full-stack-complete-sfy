@@ -11,6 +11,8 @@ public interface ArticleService {
 
     List<Article> getAllArticles();
 
+    List<Article> getAllRelatedThemeArticles(Long userId);
+
     Article createArticle(Article article, Long authorId, Set<Long> themesId);
 
     Optional<Article> getArticleById(String id);

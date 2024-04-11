@@ -1,0 +1,63 @@
+@import "../../../styles/styles.scss";
+
+.mobile-sidebar {
+    z-index: 99;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    top: 0;
+    right: -250px;
+    transform: translateX(100%);
+    transition: 0.5s;
+    position: fixed;
+    display: block;
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+    .active {
+        color: #7763c5;
+        stroke: #7763c5 !important;
+        stroke-width: 4;
+    }
+
+    .unActive {
+        color: black;
+        stroke: black;
+        stroke-width: 2;
+    }
+
+    @include respond-to(medium) {
+        display: none;
+    }
+
+    @include respond-to(large) {
+        display: none;
+    }
+
+    @include respond-to(xlarge) {
+        display: none;
+    }
+
+    .nav-links {
+        padding-right: 2rem;
+        height: 100%;
+        font-size: 1.4rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+        align-items: flex-end;
+        list-style-type: none;
+
+        div li {
+            margin: 2em 0;
+        }
+    }
+}
+
+.mobile-sidebar-show {
+    right: 0;
+    transform: translateX(0);
+}

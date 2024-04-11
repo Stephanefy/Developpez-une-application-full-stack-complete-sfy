@@ -1,7 +1,4 @@
 <section class="themes">
-    <div class="theme-buttons-group">
-        <button class="sort-button">Trier par</button>
-    </div>
     <div class="center">
         <div *ngFor="let theme of themes$ | async">
             <app-theme-card [theme]="theme" (subscribeSuccessEmitter)="setSubscribeStatusEvent($event)"></app-theme-card>

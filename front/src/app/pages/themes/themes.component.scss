@@ -1,5 +1,7 @@
+@import "../../../styles/styles.scss";
+
 .themes {
-    padding: 3rem 2rem;
+    padding: 2rem 2rem;
 
     .theme-buttons-group {
         display: flex;
@@ -23,5 +25,9 @@
     display: grid;
     grid-template-columns: 1fr 1fr; /* This creates two columns of equal width */
     gap: 20px; /* Optional: Adds space between the columns */
+
+    @include respond-to(small) {
+        grid-template-columns: 1fr;
+    }
   }
   

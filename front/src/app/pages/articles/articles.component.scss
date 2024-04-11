@@ -1,3 +1,5 @@
+@import "../../../styles/styles.scss";
+
 .articles {
     padding: 3rem 2rem;
 
@@ -7,14 +9,43 @@
     }
 
     button {
-        background-color: #7763C5;
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        background-color: #7763c5;
         color: #fff;
     }
 
     .sort-button {
         border: none;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 1.2rem;
         background-color: transparent;
         color: #000;
+
+        span {
+            margin: auto 0;
+            display: inline-block;
+        }
+        .sort-button-icon {
+            margin-left: 0.5rem;
+        }
+        .sort-button-icon-asc {
+            transform-origin: 50% 50%; /* Rotates around the center */
+            transform: rotate(180deg);
+        }
+        .sort-button-icon-desc {
+            transform-origin: 50% 50%; /* Rotates around the center */
+            transform: rotate(0deg);
+        }
+    }
+
+    @include respond-to(small) {
+        .article-buttons-group {
+            flex-direction: column;
+            align-items: center;
+        }
     }
 }
 
@@ -22,6 +53,11 @@
     margin-top: 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr; /* This creates two columns of equal width */
-    gap: 20px; /* Optional: Adds space between the columns */
-  }
-  
+    gap: 20px; 
+    place-items: center;/* Optional: Adds space between the columns */
+
+    @include respond-to(small) {
+        grid-template-columns: 1fr;
+        gap:0;
+    }
+}

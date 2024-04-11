@@ -49,6 +49,11 @@ public class ArticleServiceImpl implements ArticleService {
         return articles;
     }
 
+    @Override
+    public List<Article> getAllRelatedThemeArticles(Long userId) {
+        return articleRepository.findAllBySubscribedThemes(userId);
+    }
+
 
     @Override
     public Article createArticle(Article article, Long authorId, Set<Long> themesId) {
