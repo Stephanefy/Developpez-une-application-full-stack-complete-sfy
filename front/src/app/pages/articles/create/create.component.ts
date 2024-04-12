@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
 
+
+  articleCreatedEvent(event: boolean) {
+    if (event) {
+      this.snackBar.open('Article créé', 'Fermer', {
+        duration: 3000
+      });
+    }
+  }
 }

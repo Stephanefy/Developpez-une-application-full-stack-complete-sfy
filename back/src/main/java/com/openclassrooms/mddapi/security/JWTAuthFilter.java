@@ -24,7 +24,6 @@ import java.io.IOException;
 @Component
 public class JWTAuthFilter extends OncePerRequestFilter {
 
-//    private final Logger logger = LogManager.getLogger(AuthRestController.class);
 
 
     private final UserDetailsServiceImpl userDetailsService;
@@ -42,7 +41,6 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-//        logger.info("Request info {}", request);
 
         try {
             String authHeader = request.getHeader("Authorization");
@@ -50,12 +48,6 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             String token = null;
             String username = null;
 
-
-//            if (authHeader == null && !request.getRequestURI().contains("register") && !request.getRequestURI().contains("login") && !request.getRequestURI().contains("swagger-ui") && !request.getRequestURI().contains("chatop-api-docs")) {
-//                AccessDeniedException accessDeniedException = new AccessDeniedException("No Authorization header in the request");
-//                resolver.resolveException(request, response, null, accessDeniedException);
-//                return;
-//            }
 
 
             if (authHeader != null && authHeader.startsWith("Bearer ")) {

@@ -34,7 +34,7 @@ export class ThemeCardComponent implements OnInit {
 
   subscribe(themeId: number): void {
     //TODO once authentication is implemented changed 1 to user.id
-    this.userApiService.subscribe(themeId, 1).subscribe(
+    this.userApiService.subscribe(themeId, this.currentUser.userId).subscribe(
       {
         next: (response) => {
           console.log(response)

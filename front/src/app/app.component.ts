@@ -3,6 +3,8 @@ import { Store } from '@ngrx/store';
 import { toggleSidebar } from '../../.history/src/app/state/ui.action_20240411142434';
 import { selectUI } from './state/ui.selectors';
 import { map } from 'rxjs';
+import { selectAuth } from './state/auth.selectors';
+import { AuthApiService } from './services/auth-api.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +16,10 @@ export class AppComponent implements OnInit {
 
   public showSidebar!: boolean;
 
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private authApiService: AuthApiService
+  ) {}
 
   
   ngOnInit(): void {
@@ -24,6 +29,7 @@ export class AppComponent implements OnInit {
       // this.showSidebar = uiState.showSidebar;
       // console.log(uiState.showSidebar)
     });
+
   }
 
 

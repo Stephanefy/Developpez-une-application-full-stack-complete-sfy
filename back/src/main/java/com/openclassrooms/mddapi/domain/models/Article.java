@@ -42,5 +42,4 @@ public class Article {
     @OneToMany(mappedBy = "article")
     private Set<Comment> comments = new HashSet<>();
 
-    // Constructeurs, getters et setters
 }

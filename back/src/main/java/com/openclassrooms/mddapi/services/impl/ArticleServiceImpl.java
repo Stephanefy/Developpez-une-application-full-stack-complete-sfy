@@ -64,12 +64,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         // Fetch themes by IDs and set them
         Set<Theme> themes = new HashSet<>(themeRepository.findAllById(themesId));
-//        if (themesId!= null && !themesId.isEmpty()) {
-//            themes = (Set<Theme>) themeRepository.findAllById(themesId);
-//            if (themes.size() != themesId.size()) {
-//                throw new EntityNotFoundException("One or more themes not found.");
-//            }
-//        }
+
         log.info("themes {}", themes);
         article.setThemes(themes);
         return articleRepository.save(article);

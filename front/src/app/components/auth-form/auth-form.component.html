@@ -13,6 +13,7 @@
       type="text"
       class="form-control"
       id="usernameOrEmail"
+      (focus)="clearError()"
     />
     <mat-error *ngIf="authForm.get('usernameOrEmail')?.hasError('required')"
       >le nom d'utilisateur ou l'email est requis</mat-error
@@ -24,6 +25,7 @@
     class="form-group"
     appearance="outline"
     hideRequiredMarker="true"
+    (focus)="clearError()"
   >
     <mat-label for="username" hidden>Nom d'utilisateur</mat-label>
     <input
@@ -32,6 +34,8 @@
       type="text"
       class="form-control"
       id="username"
+      (focus)="clearError()"
+
     />
     <mat-error *ngIf="authForm.get('username')?.hasError('required')"
       >le nom d'utilisateur est requis</mat-error
@@ -88,3 +92,4 @@
     {{ isLogin ? "Se connecter" : "S'inscrire" }}
   </button>
 </form>
+<span *ngIf="(error$ | async) as error" class="error">{{ error | translate }}</span>

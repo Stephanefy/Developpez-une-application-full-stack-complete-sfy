@@ -4,6 +4,11 @@ INSERT INTO `users` (email, password, username) VALUES
 ('user2@example.com', '$2a$10$P14rGXWtdQgy7kkQuaTBnO8BUOevtaqk/CO0JGfbdezeQ6LCSgACO', 'usertwo'),
 ('user3@example.com', '$2a$10$H0/td/KwTKiZtB1MheejXuRVNFnDQSXwd9LLS6Oqdx72mIIkx.yLW', 'userthree');
 
+-- Unbcrypted password for above users
+-- aB3$dEfG
+-- Wx5!yzAb
+-- Qr4#TuvW
+
 -- Insert themes
 INSERT INTO `themes` (name, description) VALUES
 ('Java', 'Java is a widely-used, class-based, object-oriented programming language designed for flexibility, allowing developers to write code once and run it anywhere. Its robust architecture and vast ecosystem make it ideal for developing everything from mobile applications to large-scale enterprise systems.'),

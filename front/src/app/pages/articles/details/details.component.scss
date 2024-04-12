@@ -1,8 +1,15 @@
+@import '../../../../styles/styles.scss';
+
 .article-details {
     padding: 3rem 14rem;
 
+    h1 {
+        font-size: 32px;
+    }
+
     .comment-card-container {
         list-style-type: none;
+        margin: auto;
 
         .comment-card {
             margin-bottom: 1rem;
@@ -14,8 +21,10 @@
     }
 
     .article-details-subtitle {
+        margin: 2rem 0;
         width: 50%;
         display: flex;
+        font-size: 16px;
         justify-content: space-between;
         align-items: center;
 
@@ -44,5 +53,15 @@
             display: block;
             width: 20%;
         }
+
+        @include respond-to(small) {
+            width: 100%;
+            font-size: 12px;
+
+        }
+    }
+
+    @include respond-to(small) {
+        padding: 2rem;
     }
 }

@@ -29,13 +29,14 @@
   </div>
   <div class="center">
     <div
+    style="width: 100%; height: 100%;"
       *ngFor="
         let article of articles$
           | async
           | sortByDatePipe : 'publicationDate' : sortingOrder
       "
     >
-      <app-article-card [article]="article"></app-article-card>
+      <app-article-card [article]="article" ></app-article-card>
     </div>
   </div>
 </section>

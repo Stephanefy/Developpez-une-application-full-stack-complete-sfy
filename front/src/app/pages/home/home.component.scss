@@ -1,17 +1,42 @@
+@import '../../../styles/styles.scss';
+
+
+.logo {
+  @include respond-to(small) {
+    width: 200px;
+  }
+}
+
 .center {
   height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  @include respond-to(small) {
+    margin-top: 8rem;
+  }
 }
 
 .buttons {
-  width: 30%;
+  width: 40%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   button {
     color: #000;  
+    width: 20%;
+    margin: 1rem 0;
+
+    @include respond-to(small) {
+      width: 50%;
+    }
+  }
+
+  @include respond-to(small) {
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }

@@ -16,7 +16,9 @@
     <mat-form-field appearance="outline" style="width: 238px;" hideRequiredMarker="true">
       <mat-label>Content</mat-label>
       <textarea matInput rows="8" formControlName="content" data-cy="content-textarea"></textarea>
-      <mat-error *ngIf="articleForm.get('content')?.hasError('required')">Le contenu de l'aricle est requis</mat-error>
+      <mat-error *ngIf="articleForm.get('content')?.hasError('required')">Le contenu de l'article est requis</mat-error>
+      <mat-error *ngIf="articleForm.get('content')?.hasError('minlength')">le contenu de l'article doit au moins faire 1000 caractères</mat-error>
+
     </mat-form-field>
     <div>
       <button data-cy="submit-button-form" mat-raised-button color="primary" type="submit" [disabled]="articleForm.invalid">

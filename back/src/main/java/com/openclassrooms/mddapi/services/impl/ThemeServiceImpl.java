@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -53,16 +52,13 @@ public class ThemeServiceImpl implements ThemeService {
         User user = optionalUser.orElseThrow(() -> new NotFoundException("User not found"));
 
         log.info("is reached");
-        // Add the user to the theme's subscribers list
         theme.getSubscribers().add(user);
 
-        // Optionally, add the theme to the user's subscribed themes as well
-        // to maintain bidirectional consistency
+
         user.getSubscriptions().add(theme);
 
-        // Save the updated theme (and user if necessary) back to the database
         themeRepository.save(theme);
-        userRepository.save(user); // Only needed if you're updating the user's subscribed themes
+        userRepository.save(user);
 
     }
 
@@ -78,20 +74,13 @@ public class ThemeServiceImpl implements ThemeService {
         boolean removedFromTheme = theme.getSubscribers().remove(user);
         boolean removedFromUser = user.getSubscriptions().remove(theme);
 
-        // Convert the set of subscriptions to a readable string format, e.g., theme IDs
-        String subscriptionIds = user.getSubscriptions().stream()
-                .map(t -> t.getId().toString())
-                .collect(Collectors.joining(", "));
-
-        log.info("User {} now subscribed to theme IDs: {}", user.getId(), subscriptionIds);
 
         // If the user was subscribed, save the updated entities
         if (removedFromTheme && removedFromUser) {
             themeRepository.save(theme);
             userRepository.save(user);
         } else {
-            // Log or handle the case where the user wasn't subscribed
-            // This is optional and depends on how you want to handle this scenario
+
             throw new RuntimeException("User was not subscribed to the theme");
         }
     }

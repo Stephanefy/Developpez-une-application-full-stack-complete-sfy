@@ -12,6 +12,7 @@ import com.openclassrooms.mddapi.utils.validation.EmailValidator;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -58,7 +59,7 @@ public class AuthController {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(identifier, password));
         } catch (BadCredentialsException e) {
-            throw e;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Bad credentials");
         }
 
 
@@ -74,11 +75,26 @@ public class AuthController {
 
 
     @PostMapping(path = "/register")
-    public ResponseEntity<TokenResponse> register(@Valid @RequestBody CreateUserDTO registerDto)  {
+    public ResponseEntity<?> register(@Valid @RequestBody CreateUserDTO registerDto)  {
+            User convertedUserDto = convertToUserEntity(registerDto);
 
-        User convertedUserDto = convertToUserEntity(registerDto);
-        User registeredUser = authService.register(convertedUserDto);
-        String token = JWTUtils.generateToken(registeredUser.getEmail(), registeredUser.getUsername(), registeredUser.getId());
+            try {
+                User registeredUser = authService.register(convertedUserDto);
+                String token = JWTUtils.generateToken(registeredUser.getEmail(), registeredUser.getUsername(), registeredUser.getId());
+                TokenResponse tokenResponse = new TokenResponse(token);
+                return ResponseEntity.ok(tokenResponse);
+            } catch (Error e) {
+                log.error("Registration error: ", e);
+                return ResponseEntity.badRequest().body("L'email ou le nom d'utilisateur est déjà enregistré chez nous");
+            }
+    }
+
+
+    @GetMapping(path = "/renew/{id}")
+    public ResponseEntity<TokenResponse> renewToken(@PathVariable("id") String id) {
+
+        User user =  userService.getUserById(Long.valueOf(id));
+        String token = JWTUtils.generateToken(user.getEmail(), user.getUsername(), user.getId());
         TokenResponse tokenResponse = new TokenResponse(token);
 
         return ResponseEntity.ok(tokenResponse);

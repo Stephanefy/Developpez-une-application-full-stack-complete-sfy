@@ -11,6 +11,8 @@ import { Observable, of, throwError } from 'rxjs';
 })
 export class StorageService {
 
+  private key: string = 'user';
+
   constructor() { }
 
   // Set an item in local storage
@@ -43,6 +45,15 @@ export class StorageService {
     } catch (err) {
       console.error('Error removing item from localStorage', err);
     }
+  }
+
+
+  isLoggedIn(): boolean {
+    const authStatus = localStorage.getItem('authStatus');
+    if (authStatus) {
+      return true
+    }
+    return false
   }
 
   // Clear all local storage

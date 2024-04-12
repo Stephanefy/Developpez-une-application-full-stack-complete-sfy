@@ -31,5 +31,4 @@ public class Theme {
 
 
 
-    // Constructeurs, getters et setters
 }

@@ -35,5 +35,4 @@ public class Comment {
     @JoinColumn(name = "article_id")
     private Article article;
 
-    // Constructeurs, getters et setters
 }

@@ -1,0 +1,12 @@
+div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+
+    button {
+        background-color: transparent;
+        border: none;
+        margin-right: auto;
+        cursor: pointer;
+    }
+}

@@ -4,8 +4,9 @@ import { LoginRequest } from './interfaces/LoginRequest';
 import { RegisterRequest } from './interfaces/RegisterRequest';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { selectAuth } from 'src/app/state/auth.selectors';
-import { register, login } from 'src/app/state/auth.actions';
+import { selectAuth, selectAuthError } from 'src/app/state/auth.selectors';
+import { register, login, clearErrors } from 'src/app/state/auth.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth-form',
@@ -19,9 +20,9 @@ export class AuthFormComponent implements OnInit {
     usernameOrEmail: ['', [Validators.required]],
     username: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d])$/)]],
+    password: ['', [Validators.required]],
   });
-
+  public error$ = this.store.select(selectAuthError)
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -29,9 +30,9 @@ export class AuthFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.isLogin =
       this.route.snapshot.routeConfig?.path === 'connexion' && true;
+
   }
 
   submit(): void {
@@ -45,6 +46,7 @@ export class AuthFormComponent implements OnInit {
         password: loginRequest.password,
       };
       this.store.dispatch(login(request));
+     
     } else {
       const registerRequest = this.authForm.value as RegisterRequest;
 
@@ -56,5 +58,10 @@ export class AuthFormComponent implements OnInit {
       };
       this.store.dispatch(register(request));
     }
+  }
+
+  clearError(): void {
+    console.log('clearError');
+    this.store.dispatch(clearErrors())
   }
 }

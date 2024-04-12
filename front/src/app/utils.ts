@@ -18,6 +18,6 @@ export const getInitialState = (): AuthState => {
       }
     } 
     // Return default state if no valid stored auth data
-    return { user: null, isAuthenticated: false };
+    return { token: '', user: null, isAuthenticated: false };
   }
   

@@ -44,8 +44,6 @@ public class User {
     )
     private Set<Theme> subscriptions = new HashSet<>();
 
-
-    // Excluding sensitive or lazy-loaded fields from toString
     @Override
     public String toString() {
         return "User{" +

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Article, CreateArticle } from 'src/app/interfaces/article.interface';
@@ -12,6 +12,8 @@ import { ArticleApiService } from 'src/app/services/article-api.service';
   styleUrls: ['./create-form.component.scss']
 })
 export class CreateFormComponent implements OnInit {
+
+  @Output() articleCreatedEmitter = new EventEmitter<boolean>();
 
   public articleForm!: FormGroup;;
   public themes$: Observable<Theme[]> = this.themeApiService.all();
@@ -31,22 +33,23 @@ export class CreateFormComponent implements OnInit {
       ],
       title: [
         '',
-        [Validators.required]
+        [
+          Validators.required,
+          Validators.maxLength(50)
+        ]
       ],
       content: [
        '',
         [
           Validators.required,
+          Validators.minLength(1000)
         ]
       ],
     });
   }
 
-  // private initArticleForm(): void {
-  //   this.articleForm = 
-  // }
 
-  public submit(): void {
+  submit(): void {
     const formValues = this.articleForm?.value;
 
     const newArticle = {
@@ -58,10 +61,17 @@ export class CreateFormComponent implements OnInit {
     }
 
     console.log(newArticle)
-      this.articleApiService
-        .create(newArticle)
-        .subscribe((_: CreateArticle) => console.log('article created !'));
-    
+      this.articleApiService.create(newArticle)
+        .subscribe({
+          next: (response) => {
+            this.articleCreatedEmitter.emit(true);
+          },
+          error: (error) => {
+            console.error('Create failed', error);
+          }
+        });
   }
+
+
 
 }

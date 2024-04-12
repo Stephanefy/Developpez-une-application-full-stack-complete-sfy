@@ -27,19 +27,6 @@ public class CommentController {
         this.modelMapper = new ModelMapper();
     }
 
-    // Get all comments for a specific article
-//    @GetMapping("/article/{articleId}")
-//    public ResponseEntity<List<CommentDTO>> getCommentsByArticleId(@PathVariable String articleId) {
-//        List<Comment> comments = commentService.getCommentsByArticleId(Long.valueOf(articleId));
-//
-//        List<CommentDTO> commentDtos = comments.stream()
-//                .map(comment -> modelMapper.map(comment, CommentDTO.class))
-//                .collect(Collectors.toList());
-//
-//        return ResponseEntity.ok().body(commentDtos);
-//    }
-
-    // Add a new comment to an article
     @PostMapping("/article/{articleId}")
     public ResponseEntity<CommentDTO> addCommentToArticle(@PathVariable Long articleId,
                                                           @Valid @RequestBody CreateCommentDTO commentDto) {
@@ -50,7 +37,6 @@ public class CommentController {
         return ResponseEntity.ok().body(modelMapper.map(comment, CommentDTO.class));
     }
 
-    // Update a comment
     @PutMapping("/{id}")
     public ResponseEntity<CommentDTO> updateComment(@PathVariable Long id,
                                                     @Valid @RequestBody CommentDTO commentDto) {
@@ -66,7 +52,6 @@ public class CommentController {
         return ResponseEntity.ok().body(modelMapper.map(updatedComment, CommentDTO.class));
     }
 
-    // Delete a comment
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteComment(@PathVariable String id) throws Exception {
         log.info("Deleting comment {}", id);

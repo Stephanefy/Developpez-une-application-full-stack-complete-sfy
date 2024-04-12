@@ -1,4 +1,4 @@
-@import '../../../styles/styles.scss';
+@import "../../../styles/styles.scss";
 
 .nav {
     display: flex;
@@ -14,8 +14,8 @@
         color: black;
     }
     .active {
-        color: #7763C5;
-        stroke: #7763C5!important;
+        color: #7763c5;
+        stroke: #7763c5 !important;
         stroke-width: 4;
     }
 
@@ -28,20 +28,28 @@
     .example-icon {
         padding: 0 14px;
     }
+
+
+   
 }
+.nav-hidden {
+    @include respond-to(small) {
+        display: none;
+    }
+}
+
+
 
 .logo {
     width: 50px;
     height: 50px;
 }
 
-
 .nav-links {
     display: flex;
     justify-content: space-between;
     align-items: center;
     list-style-type: none;
-
 
     @include respond-to(small) {
         display: none;
@@ -50,30 +58,26 @@
     @include respond-to(medium) {
         width: 30%;
     }
-    
-    @include respond-to(large) {
-        width: 25%;
-    }
 
+    @include respond-to(large) {
+        padding-right: 1rem;
+        width: 23%;
+    }
 }
 
 .menu-button-icon {
     background-color: transparent;
     border: none;
 
-
     @include respond-to(small) {
         display: block;
     }
 
-
     @include respond-to(medium) {
         display: none;
     }
-    
+
     @include respond-to(large) {
         display: none;
     }
-   
 }
-

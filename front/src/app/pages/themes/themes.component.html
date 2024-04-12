@@ -1,6 +1,6 @@
 <section class="themes">
     <div class="center">
-        <div *ngFor="let theme of themes$ | async">
+        <div *ngFor="let theme of themes$ | async" style="width: 100%">
             <app-theme-card [theme]="theme" (subscribeSuccessEmitter)="setSubscribeStatusEvent($event)"></app-theme-card>
 
         </div>

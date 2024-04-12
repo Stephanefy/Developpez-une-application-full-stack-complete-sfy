@@ -1,6 +1,9 @@
-<main class="create-article">
-  <h1>Créer un nouvel article</h1>
-  <div>
-      <app-create-form></app-create-form>
-  </div>
+<main>
+  <app-back-button></app-back-button>
+  <section class="create-article">
+      <h1>Créer un nouvel article</h1>
+      <div style="width: 100%;">
+          <app-create-form (articleCreatedEmitter)="articleCreatedEvent($event)"></app-create-form>
+      </div>
+  </section>
 </main>

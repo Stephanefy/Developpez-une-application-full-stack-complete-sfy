@@ -1,3 +1,5 @@
+@import "../../../styles/styles.scss";
+
 .auth-form {
     display: flex;
     flex-direction: column;
@@ -6,14 +8,25 @@
     .form-group {
         width: 250px;
         margin: auto;
+
+        @include respond-to(small) {
+            width: 350px;
+        }
     }
 
-    
     button {
-    
         width: 50%;
         margin: 2rem auto;
-        background-color: #7763C5;
+        background-color: #7763c5;
         color: #fff;
     }
+
+
+}
+
+.error {
+    display: inline-block;
+    margin: auto;
+    color: red;
+
 }

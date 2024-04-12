@@ -1,4 +1,4 @@
-<mat-toolbar class="nav" color="primary">
+<mat-toolbar class="nav" color="primary" [ngClass]="{ 'nav-hidden': isAuthRoutes }">
   <a routerLink to="/">
     <img src="/assets/logo_p6.png" alt="logo" width="150" />
   </a>

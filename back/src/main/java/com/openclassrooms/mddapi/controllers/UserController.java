@@ -36,7 +36,6 @@ public class UserController {
         this.modelMapper = new ModelMapper();
     }
 
-    // Register a new user
     @PostMapping("/register")
     public ResponseEntity<UserDTO> registerUser(@Valid @RequestBody CreateUserDTO createUserDto) {
         log.info("Registering new user: {}", createUserDto);
@@ -48,7 +47,6 @@ public class UserController {
         return ResponseEntity.ok().body(responseBody);
     }
 
-    // Get user by ID
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable String id) {
         User user = userService.getUserById(Long.valueOf(id));
@@ -58,7 +56,6 @@ public class UserController {
         return ResponseEntity.ok().body(modelMapper.map(user, UserDTO.class));
     }
 
-    // Update user details
     @PutMapping("/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @Valid @RequestBody UpdateDTO updateUserDto) {
         log.info("Updating user {}: {}", id, updateUserDto);
@@ -75,7 +72,6 @@ public class UserController {
         return ResponseEntity.ok().body(modelMapper.map(updatedUser, UserDTO.class));
     }
 
-    // Delete a user
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         log.info("Deleting user {}", id);

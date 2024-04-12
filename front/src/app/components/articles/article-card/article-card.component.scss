@@ -1,18 +1,22 @@
 @import "../../../../styles/styles.scss";
 
 .article-card {
-    height: max-content;
+    width: 100%;
+    height: 100%;
     border: none;
     background-color: #F5F5F5;
     box-shadow: none;
-    padding: 1rem;
+    padding: 3rem;
     cursor: pointer;
 
     .article-card-title{
         width: 100%;
+        font-size: 24px;
     }
 
     .article-card-subtitle {
+        margin: 1rem 0;
+        text-align: center;
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -22,6 +26,7 @@
 
     @include respond-to(small) {
         margin: 1rem 0;
+        height: max-content;
     }
 }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, repeat, tap, timeout } from 'rxjs';
 import { User } from '../interfaces/user.interface';
 import { Theme } from '../interfaces/theme.interface';
 
@@ -33,6 +33,7 @@ export class UserApiService {
       tap(subscriptions => this.subscriptionsSubject.next(subscriptions))
     );
   }
+
 
   public unsubscribe(id: number, userId: number): Observable<any> {
     console.log(`${this.baseUrl}${this.path}/${id}/unsubscribe/${userId}`)

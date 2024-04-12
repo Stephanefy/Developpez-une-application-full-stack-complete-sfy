@@ -15,11 +15,24 @@ export class NavbarComponent implements OnInit {
 
   public auth$ = this.store.select(selectAuth);
   public isUserProfilActive: boolean = false;
+  public isAuthRoutes!: boolean;
 
 
-  constructor(private router: Router, private store: Store) { }
+  constructor(
+    private router: Router, 
+    private store: Store,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+
+
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.isAuthRoutes = event.url.includes('connexion' || 'inscription' ) ? true : false;
+    });
+
 
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)

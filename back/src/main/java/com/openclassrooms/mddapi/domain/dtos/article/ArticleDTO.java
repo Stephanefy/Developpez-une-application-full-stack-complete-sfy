@@ -20,5 +20,4 @@ public class ArticleDTO {
     private Set<CommentDTO> comments;
     private Date publicationDate;
 
-    // Constructors, Getters, and Setters
 }

@@ -5,6 +5,7 @@
   <div class="article-card-subtitle">
     <mat-card-subtitle>{{ article.publicationDate | date: 'longDate' : '+0000' }}</mat-card-subtitle>
     <mat-card-subtitle>{{ article.author.username }}</mat-card-subtitle>
+    <mat-card-subtitle></mat-card-subtitle>
   </div>
   <mat-card-content>
     {{ article.description | slice:0:500 }}{{article.description.length > 500 ? '...' : ''}}

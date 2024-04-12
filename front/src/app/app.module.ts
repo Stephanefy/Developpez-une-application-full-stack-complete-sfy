@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ArticlesComponent } from './pages/articles/articles.component';
 import { ArticleCardComponent } from './components/articles/article-card/article-card.component';
 import {MatCardModule} from '@angular/material/card';
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
 import { CommonModule } from '@angular/common';
 import { ThemesComponent } from './pages/themes/themes.component';
 import { ThemeCardComponent } from './components/theme-card/theme-card.component';
@@ -28,7 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateFormComponent } from './components/articles/create-form/create-form.component';
 import { UserProfileFormComponent } from './components/users/user-profile-form/user-profile-form.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { authReducer } from './state/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './state/auth.effects';
@@ -36,11 +36,24 @@ import { SortByDatePipe } from './pipes/sortByDatePipe';
 import {MatIconModule} from '@angular/material/icon';
 import { MobileSidebarComponent } from './components/mobile-sidebar/mobile-sidebar.component';
 import { uiReducer } from './state/ui.reducer';
+import { JwtInterceptor } from './interceptors/interceptor';
+import { renew } from './state/auth.actions';
+import { TranslatePipe } from './pipes/translate.pipe';
+import { BackButtonComponent } from './components/back-button/back-button.component';
 
+export function initializeApp(store: Store) {
+  return (): Promise<void> => {
+    return new Promise(resolve => {
+      store.dispatch(renew());
+      
+      resolve();
+    });
+  };
+}
 
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, InscriptionComponent, ConnexionComponent, NavbarComponent, AuthFormComponent, ArticlesComponent, ArticleCardComponent, ThemesComponent, ThemeCardComponent, CreateComponent, DetailsComponent, ProfileComponent, CommentFormComponent, CreateFormComponent, UserProfileFormComponent, SortByDatePipe, MobileSidebarComponent],
+  declarations: [AppComponent, HomeComponent, InscriptionComponent, ConnexionComponent, NavbarComponent, AuthFormComponent, ArticlesComponent, ArticleCardComponent, ThemesComponent, ThemeCardComponent, CreateComponent, DetailsComponent, ProfileComponent, CommentFormComponent, CreateFormComponent, UserProfileFormComponent, SortByDatePipe, MobileSidebarComponent, TranslatePipe, BackButtonComponent],
   imports: [
     StoreModule.forRoot({ auth: authReducer, ui: uiReducer }),
     EffectsModule.forRoot([AuthEffects]),
@@ -60,7 +73,10 @@ import { uiReducer } from './state/ui.reducer';
     MatSelectModule,
     MatSnackBarModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: APP_INITIALIZER, useFactory: initializeApp, deps: [Store], multi: true }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

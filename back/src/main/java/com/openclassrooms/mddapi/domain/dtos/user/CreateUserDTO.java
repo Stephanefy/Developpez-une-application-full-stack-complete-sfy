@@ -9,5 +9,4 @@ public class CreateUserDTO {
     private String password;
     private String username;
 
-    // Constructors, Getters, and Setters
 }
