@@ -4,6 +4,7 @@ import { User } from '../interfaces/user.interface';
 export const login = createAction('[Auth] Login', props<{ usernameOrEmail: string, password: string }>());
 export const register = createAction('[Auth] Register', props<{ email: string, username: string, password: string }>());
 export const renew = createAction('[Auth] Renew');
+export const updateUser = createAction('[Auth] Update User', props<{ user: User }>());
 export const loginSuccess = createAction(
     '[Auth] Login Success',
     props<{ token: string, user: User, isAuthenticated: boolean }>()

@@ -1,28 +1,70 @@
-<form class="create-article-form" [formGroup]="articleForm" (ngSubmit)="submit()">
-    <mat-form-field appearance="outline" style="width: 238px;" hideRequiredMarker="true">
-      <mat-label>Thèmes</mat-label>
-      <mat-select ngDefaultControl formControlName="theme_ids" data-cy="theme-select">
-        <mat-option *ngFor="let theme of themes$ | async" [value]="theme.id">
-          {{theme.name}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="articleForm.get('themes_id')?.hasError('required')">Vous devez sélectionner un thème</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="" style="width: 238px;" hideRequiredMarker="true">
-      <mat-label>Title</mat-label>
-      <input matInput formControlName="title">
-      <mat-error *ngIf="articleForm.get('title')?.hasError('required')">Le titre de l'article est requis</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline" style="width: 238px;" hideRequiredMarker="true">
-      <mat-label>Content</mat-label>
-      <textarea matInput rows="8" formControlName="content" data-cy="content-textarea"></textarea>
-      <mat-error *ngIf="articleForm.get('content')?.hasError('required')">Le contenu de l'article est requis</mat-error>
-      <mat-error *ngIf="articleForm.get('content')?.hasError('minlength')">le contenu de l'article doit au moins faire 1000 caractères</mat-error>
-
-    </mat-form-field>
-    <div>
-      <button data-cy="submit-button-form" mat-raised-button color="primary" type="submit" [disabled]="articleForm.invalid">
-        Créer 
-      </button>
-    </div>
-  </form>
+<form
+  class="create-article-form"
+  [formGroup]="articleForm"
+  (ngSubmit)="submit()"
+>
+  <mat-form-field
+    appearance="outline"
+    style="width: 238px"
+    hideRequiredMarker="true"
+  >
+    <mat-label>Thèmes</mat-label>
+    <mat-select
+      ngDefaultControl
+      formControlName="theme_ids"
+      data-cy="theme-select"
+      (focus)="clearError()"
+    >
+      <mat-option *ngFor="let theme of themes$ | async" [value]="theme.id">
+        {{ theme.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="articleForm.get('themes_id')?.hasError('required')"
+      >Vous devez sélectionner un thème</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field
+    appearance="outline"
+    class=""
+    style="width: 238px"
+    hideRequiredMarker="true"
+  >
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" (focus)="clearError()" />
+    <mat-error *ngIf="articleForm.get('title')?.hasError('required')"
+      >Le titre de l'article est requis</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field
+    appearance="outline"
+    style="width: 238px"
+    hideRequiredMarker="true"
+    (focus)="clearError()"
+  >
+    <mat-label>Content</mat-label>
+    <textarea
+      matInput
+      rows="8"
+      formControlName="content"
+      data-cy="content-textarea"
+    ></textarea>
+    <mat-error *ngIf="articleForm.get('content')?.hasError('required')"
+      >Le contenu de l'article est requis</mat-error
+    >
+    <mat-error *ngIf="articleForm.get('content')?.hasError('minlength')"
+      >le contenu de l'article doit au moins faire 1000 caractères</mat-error
+    >
+  </mat-form-field>
+  <div>
+    <button
+      data-cy="submit-button-form"
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="articleForm.invalid"
+    >
+      Créer
+    </button>
+  </div>
+  <span *ngIf="error as error" class="error">{{ error | translate }}</span>
+</form>

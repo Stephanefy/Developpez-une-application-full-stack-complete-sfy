@@ -26,8 +26,25 @@
     grid-template-columns: 1fr 1fr; /* This creates two columns of equal width */
     gap: 20px; /* Optional: Adds space between the columns */
 
+    @include respond-to(xsmall) {
+        grid-template-columns: 1fr;
+    }
+
     @include respond-to(small) {
         grid-template-columns: 1fr;
     }
+
+    div {
+        
+
+        @include respond-to(xsmall) {
+            margin: 1rem 0;
+        }
+        @include respond-to(small) {
+            margin: 1rem 0;
+        }
+    }
+
+   
   }
   

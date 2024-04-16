@@ -4,6 +4,7 @@ package com.openclassrooms.mddapi.controllers;
 import com.openclassrooms.mddapi.domain.dtos.user.CreateUserDTO;
 import com.openclassrooms.mddapi.domain.dtos.user.LoginUserDTO;
 import com.openclassrooms.mddapi.domain.models.User;
+import com.openclassrooms.mddapi.exceptions.NotFoundException;
 import com.openclassrooms.mddapi.responses.TokenResponse;
 import com.openclassrooms.mddapi.security.JWTUtils;
 import com.openclassrooms.mddapi.services.AuthService;
@@ -23,12 +24,10 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:4200")
 @Log4j2
 public class AuthController {
 
     private ModelMapper modelMapper;
-    private EmailValidator emailValidator;
 
 
     @Autowired
@@ -42,15 +41,25 @@ public class AuthController {
 
     public AuthController() {
         this.modelMapper = new ModelMapper();
-        this.emailValidator = new EmailValidator();
     }
 
-
+    /**
+     * Endpoint for user login.
+     *
+     * @param  loginDto   The DTO containing user login information
+     * @return           ResponseEntity containing the user's authentication token
+     */
     @PostMapping(path= "/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginUserDTO loginDto) {
-        if (!emailValidator.isValidEmail(loginDto.getUsernameOrEmail())) {
-            User user = userService.getUserByUsername(loginDto.getUsernameOrEmail());
-            loginDto.setUsernameOrEmail(user.getEmail());
+        if (!EmailValidator.isValidEmail(loginDto.getUsernameOrEmail())) {
+            try {
+                User user = userService.getUserByUsername(loginDto.getUsernameOrEmail());
+                loginDto.setUsernameOrEmail(user.getEmail());
+            } catch (NotFoundException e) {
+                return ResponseEntity.notFound().build();
+
+            }
+
         }
         String identifier = loginDto.getUsernameOrEmail();
         String password = loginDto.getPassword();
@@ -73,7 +82,12 @@ public class AuthController {
         return ResponseEntity.ok(tokenResponse);
     }
 
-
+    /**
+     * Registers a new user using the provided user data and returns a ResponseEntity containing the user's authentication token.
+     *
+     * @param  registerDto   The DTO containing user registration information
+     * @return               ResponseEntity containing the user's authentication token
+     */
     @PostMapping(path = "/register")
     public ResponseEntity<?> register(@Valid @RequestBody CreateUserDTO registerDto)  {
             User convertedUserDto = convertToUserEntity(registerDto);
@@ -89,7 +103,12 @@ public class AuthController {
             }
     }
 
-
+    /**
+     * Retrieves a token for renewing the user's authentication.
+     *
+     * @param  id   The ID of the user
+     * @return     ResponseEntity containing the renewed token
+     */
     @GetMapping(path = "/renew/{id}")
     public ResponseEntity<TokenResponse> renewToken(@PathVariable("id") String id) {
 
@@ -100,13 +119,24 @@ public class AuthController {
         return ResponseEntity.ok(tokenResponse);
     }
 
-
+    /**
+     * A method to convert a User object to a CreateUserDTO object.
+     *
+     * @param  user  The User object to be converted
+     * @return      The converted CreateUserDTO object
+     */
     private CreateUserDTO convertToUserDto(User user) {
         CreateUserDTO registerDto = modelMapper.map(user, CreateUserDTO.class);
 
         return registerDto;
     }
 
+    /**
+     * A method to convert a CreateUserDTO object to a User object.
+     *
+     * @param  registerDto  The CreateUserDTO object to be converted
+     * @return              The converted User object
+     */
     private User convertToUserEntity(CreateUserDTO registerDto) {
 
         User user = modelMapper.map(registerDto, User.class);

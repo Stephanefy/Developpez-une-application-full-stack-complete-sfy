@@ -16,6 +16,13 @@ export class UnAuthGuard implements CanActivate {
     private router: Router
   ) {}
 
+    /**
+   * Determines if unauthenticated route can be activated.
+   *
+   * @param {ActivatedRouteSnapshot} route - The route to activate.
+   * @param {RouterStateSnapshot} state - The state of the router.
+   * @return {Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree} - An observable, promise, or boolean indicating if the route can be activated.
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

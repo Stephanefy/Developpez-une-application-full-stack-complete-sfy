@@ -30,7 +30,7 @@ export class ThemesComponent implements OnInit {
     if (this.subscribeSuccessStatus) {
       this.snackBar.open('Abonnement enregisté', 'Fermer', {
         duration: 2000,
-        panelClass: ['custom-snack-bar']
+        panelClass: ['snackbar-success']
       });
     }
     

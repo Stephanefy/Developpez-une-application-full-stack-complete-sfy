@@ -51,6 +51,10 @@
     align-items: center;
     list-style-type: none;
 
+    @include respond-to(xsmall) {
+        display: none;
+    }
+
     @include respond-to(small) {
         display: none;
     }
@@ -68,6 +72,8 @@
 .menu-button-icon {
     background-color: transparent;
     border: none;
+    width: 10%;
+    padding-right: 2.5rem;
 
     @include respond-to(small) {
         display: block;

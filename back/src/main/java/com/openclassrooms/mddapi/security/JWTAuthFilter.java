@@ -38,6 +38,17 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     @Qualifier("handlerExceptionResolver")
     private HandlerExceptionResolver resolver;
 
+
+
+        /**
+     * Executes the filtering process for incoming HTTP requests, including JWT token validation and user authentication.
+     *
+     * @param  request      the HTTP servlet request
+     * @param  response     the HTTP servlet response
+     * @param  filterChain  the filter chain for request processing
+     * @throws ServletException  if a servlet-specific error occurs
+     * @throws IOException       if an input or output error occurs during the filtering process
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 

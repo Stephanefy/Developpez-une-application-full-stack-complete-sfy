@@ -23,7 +23,6 @@ export class AppComponent implements OnInit {
 
   
   ngOnInit(): void {
-    console.log(this.store.select(selectUI))
     this.store.select(selectUI).subscribe(uiState => {
       this.showSidebar = uiState.showSidebar;
       // this.showSidebar = uiState.showSidebar;

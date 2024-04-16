@@ -18,7 +18,10 @@ public class JWTUtils {
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private static final int MINUTES = 60;
 
-
+    /*
+    *
+    *
+    * */
     public static String generateToken(String email, String username, Long userId) {
         var now = Instant.now();
 
@@ -31,11 +34,21 @@ public class JWTUtils {
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
     }
-
+    /**
+     * Extracts the username from the provided JWT token.
+     *
+     * @param  token  The JWT token from which to extract the username
+     * @return        The extracted username
+     */
     public static String extractUsername(String token) {
         return getTokenBody(token).getSubject();
     }
-
+    /**
+     * Extracts the user ID from the provided JWT token.
+     *
+     * @param  token  The JWT token from which to extract the user ID
+     * @return        The extracted user ID
+     */
     public static Integer extractId(String token) throws InvalidTokenException {
         try {
             Claims claims = getTokenBody(token);
@@ -45,12 +58,24 @@ public class JWTUtils {
         }
     }
 
-
+    /**
+     * Validates the provided token against the user details.
+     *
+     * @param  token        The JWT token to validate
+     * @param  userDetails  The user details to validate the token against
+     * @return             True if the token is valid, false otherwise
+     */
     public static Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
+    /**
+     * Retrieves the body of the JWT token.
+     *
+     * @param  token  The JWT token from which to retrieve the body
+     * @return        The body of the JWT token
+     */
     private static Claims getTokenBody(String token) {
         try {
             Jws<Claims> claimsJws = Jwts.parserBuilder()
@@ -63,6 +88,12 @@ public class JWTUtils {
         }
     }
 
+    /**
+     * Checks if the provided token has expired.
+     *
+     * @param  token  The JWT token to check for expiration
+     * @return        True if the token has expired, false otherwise
+     */
     private static boolean isTokenExpired(String token) {
         Claims claims = getTokenBody(token);
         return claims.getExpiration().before(new Date());

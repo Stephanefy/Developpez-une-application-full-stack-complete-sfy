@@ -19,14 +19,26 @@
         margin: 2rem auto;
         background-color: #7763c5;
         color: #fff;
+
+        :disabled {
+            background-color: #ccc;
+        }
     }
 
 
 }
 
 .error {
-    display: inline-block;
-    margin: auto;
-    color: red;
-
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    span {
+        text-align: center;
+        margin: auto;
+        display: inline-block;
+        margin: auto;
+        color: red;
+        
+    
+    }
 }

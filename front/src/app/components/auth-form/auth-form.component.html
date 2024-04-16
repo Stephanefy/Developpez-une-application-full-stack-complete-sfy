@@ -92,4 +92,6 @@
     {{ isLogin ? "Se connecter" : "S'inscrire" }}
   </button>
 </form>
-<span *ngIf="(error$ | async) as error" class="error">{{ error | translate }}</span>
+<div *ngIf="(error$ | async) as error" class="error">
+  <span >{{ error | translate }}</span>
+</div>

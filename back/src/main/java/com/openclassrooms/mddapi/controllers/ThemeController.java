@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/themes")
 @Log4j2
-@CrossOrigin(origins = "http://localhost:4200")
 public class ThemeController {
 
     private ModelMapper modelMapper;
@@ -31,8 +30,12 @@ public class ThemeController {
     public ThemeController() {
         this.modelMapper = new ModelMapper();
     }
-
-    @GetMapping("")
+        /**
+     * Retrieves all themes, maps them to DTOs using modelMapper, and returns a ResponseEntity containing a list of ThemeDTOs.
+     *
+     * @return          ResponseEntity containing a list of ThemeDTOs
+     */
+    @GetMapping()
     public ResponseEntity<List<ThemeDTO>> getAllThemes() {
         List<Theme> themes = themeService.getAllThemes();
 
@@ -43,6 +46,12 @@ public class ThemeController {
         return ResponseEntity.ok().body(themeDtos);
     }
 
+    /**
+     * Retrieves a theme by its ID, maps it to a ThemeDTO using modelMapper, and returns a ResponseEntity containing the ThemeDTO.
+     *
+     * @param  id    The ID of the theme to retrieve
+     * @return       ResponseEntity containing the retrieved ThemeDTO
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ThemeDTO> getThemeById(@PathVariable String id) {
         Optional<Theme> optionalTheme = themeService.getThemeById(id);
@@ -51,7 +60,12 @@ public class ThemeController {
 
         return ResponseEntity.ok().body(modelMapper.map(theme, ThemeDTO.class));
     }
-
+    /**
+     * Creates a new theme based on the provided data in the CreateThemeDTO.
+     *
+     * @param  themeDto    The data transfer object containing information for the new theme
+     * @return             ResponseEntity indicating the successful creation of the theme
+     */
     @PostMapping()
     public ResponseEntity<ThemeDTO> createTheme(@Valid @RequestBody CreateThemeDTO themeDto) {
         log.info(themeDto);
@@ -63,6 +77,13 @@ public class ThemeController {
         return ResponseEntity.ok().body(responseBody);
     }
 
+    /**
+     * Updates a theme by its ID and returns a ResponseEntity containing the updated ThemeDTO.
+     *
+     * @param  id       The ID of the theme to update
+     * @param  themeDto The data transfer object containing the updated theme details
+     * @return          ResponseEntity containing the updated ThemeDTO
+     */
     @PutMapping("/{id}")
     public ResponseEntity<ThemeDTO> updateTheme(@PathVariable String id, @Valid @RequestBody ThemeDTO themeDto) {
         Theme themeRequest = modelMapper.map(themeDto, Theme.class);
@@ -75,6 +96,12 @@ public class ThemeController {
         return ResponseEntity.ok().body(modelMapper.map(updatedTheme, ThemeDTO.class));
     }
 
+    /**
+     * Deletes a theme with the given ID.
+     *
+     * @param  id  The ID of the theme to delete
+     * @return     A ResponseEntity indicating the outcome of the deletion
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTheme(@PathVariable String id) {
         boolean isDeleted = themeService.deleteTheme(id);

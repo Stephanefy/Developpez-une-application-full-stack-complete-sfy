@@ -30,7 +30,13 @@ export class AuthEffects {
               });
         }),
         //   map(user => AuthActions.loginSuccess({ user })),
-          catchError(error => of(AuthActions.loginFailure({ error })))
+          catchError(error => {
+            if (Object.keys(error).includes('error')) {
+              return of(AuthActions.loginFailure({ error: error.error.message }));
+            }
+            return of(AuthActions.loginFailure({ error }))
+          
+          })
         )
       )
     )

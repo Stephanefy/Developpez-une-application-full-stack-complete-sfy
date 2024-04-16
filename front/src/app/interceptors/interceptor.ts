@@ -27,6 +27,14 @@ export class JwtInterceptor implements HttpInterceptor {
     private authApiService: AuthApiService
   ) {}
 
+  /**
+   * Intercepts an HTTP request and adds authorization headers if a token is available.
+   * If the token is not available, it handles 403 errors by attempting to renew the token.
+   *
+   * @param {HttpRequest<any>} request - The HTTP request to intercept.
+   * @param {HttpHandler} next - The next handler in the chain.
+   * @return {Observable<HttpEvent<any>>} The observable for the intercepted HTTP event.
+   */
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
@@ -48,13 +56,13 @@ export class JwtInterceptor implements HttpInterceptor {
     } else {
         return next.handle(request).pipe(
             catchError((error: any) => {
-              console.log('reached');
+              
               if (
                 error instanceof HttpErrorResponse &&
                 !request.url.includes('api/auth/connexion') &&
                 error.status === 403
               ) {
-                console.log('reached 2');
+                
                 return this.handle403Error(request, next, preferredLanguage);
               }
       
@@ -78,7 +86,7 @@ export class JwtInterceptor implements HttpInterceptor {
           switchMap((user) => {
             return this.authApiService.renew(user.userId).pipe(
               switchMap((value) => {
-                console.log('value', value);
+                
                 this.isRefreshing = false;
                 this.store.dispatch(
                   loginSuccess({

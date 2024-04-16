@@ -39,7 +39,7 @@ export class AuthFormComponent implements OnInit {
     if (this.isLogin) {
       const loginRequest = this.authForm.value as LoginRequest;
 
-      console.log('loginRequest', loginRequest);
+      
 
       const request = {
         usernameOrEmail: loginRequest.usernameOrEmail,
@@ -50,7 +50,7 @@ export class AuthFormComponent implements OnInit {
     } else {
       const registerRequest = this.authForm.value as RegisterRequest;
 
-      console.log(registerRequest);
+      
       const request = {
         email: registerRequest.email,
         username: registerRequest.username,
@@ -61,7 +61,7 @@ export class AuthFormComponent implements OnInit {
   }
 
   clearError(): void {
-    console.log('clearError');
+    
     this.store.dispatch(clearErrors())
   }
 }

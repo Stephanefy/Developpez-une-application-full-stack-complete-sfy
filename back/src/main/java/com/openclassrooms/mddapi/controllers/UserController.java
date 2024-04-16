@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/users")
 @Log4j2
-@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     private ModelMapper modelMapper;
@@ -36,6 +35,12 @@ public class UserController {
         this.modelMapper = new ModelMapper();
     }
 
+    /**
+     * Register a new user with the provided user data.
+     *
+     * @param  createUserDto    The data transfer object containing user registration details
+     * @return                  ResponseEntity containing the registered UserDTO
+     */
     @PostMapping("/register")
     public ResponseEntity<UserDTO> registerUser(@Valid @RequestBody CreateUserDTO createUserDto) {
         log.info("Registering new user: {}", createUserDto);
@@ -47,6 +52,12 @@ public class UserController {
         return ResponseEntity.ok().body(responseBody);
     }
 
+    /**
+     * Retrieves a user by their ID.
+     *
+     * @param  id   The ID of the user
+     * @return      ResponseEntity containing the UserDTO of the retrieved user
+     */
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUserById(@PathVariable String id) {
         User user = userService.getUserById(Long.valueOf(id));
@@ -56,6 +67,13 @@ public class UserController {
         return ResponseEntity.ok().body(modelMapper.map(user, UserDTO.class));
     }
 
+    /**
+     * Updates a user with the given ID.
+     *
+     * @param  id            The ID of the user to update
+     * @param  updateUserDto The data transfer object containing the updated user details
+     * @return               ResponseEntity containing the updated UserDTO
+     */
     @PutMapping("/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @Valid @RequestBody UpdateDTO updateUserDto) {
         log.info("Updating user {}: {}", id, updateUserDto);
@@ -71,7 +89,12 @@ public class UserController {
 
         return ResponseEntity.ok().body(modelMapper.map(updatedUser, UserDTO.class));
     }
-
+    /**
+     * Deletes a user with the given ID.
+     *
+     * @param  id  The ID of the user to delete
+     * @return     A ResponseEntity indicating the outcome of the deletion
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         log.info("Deleting user {}", id);
@@ -84,7 +107,12 @@ public class UserController {
 
         return ResponseEntity.ok().build();
     }
-
+    /**
+     * Retrieves the subscriptions for a user.
+     *
+     * @param  userId  The ID of the user
+     * @return         A ResponseEntity containing the user's subscriptions
+     */
     @GetMapping("/subscriptions/{userId}")
     public ResponseEntity<?> getUserSubscriptions(@PathVariable String userId) {
 
@@ -97,6 +125,13 @@ public class UserController {
         return ResponseEntity.ok().body(subscriptions);
     }
 
+    /**
+     * Subscribes a user to a theme.
+     *
+     * @param  themeId  The ID of the theme to subscribe to
+     * @param  userId   The ID of the user subscribing
+     * @return          A ResponseEntity indicating the outcome of the subscription
+     */
     @PostMapping("/{id}/subscribe/{userId}")
     public ResponseEntity<?> subscribeToTheme(@PathVariable ("id") String themeId, @PathVariable ("userId") String userId) {
 
@@ -105,6 +140,13 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * Unsubscribes a user from a theme.
+     *
+     * @param  themeId  The ID of the theme to unsubscribe from
+     * @param  userId   The ID of the user unsubscribing
+     * @return          A ResponseEntity indicating the outcome of the unsubscription
+     */
     @DeleteMapping("/{id}/unsubscribe/{userId}")
     public ResponseEntity<?> unsubscribeToTheme(@PathVariable ("id") String themeId, @PathVariable ("userId") String userId) {
 

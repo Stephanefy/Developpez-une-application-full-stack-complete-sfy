@@ -68,10 +68,9 @@ INSERT INTO `user_subscriptions` (user_id, theme_id) VALUES
 -- Link the new articles to their respective themes
 INSERT INTO `article_themes` (article_id, theme_id) VALUES
 (1, 5),
-(3, 6),
-(5, 7),
+(3, 7),
+(5, 4),
 (4, 8),
-(2, 4),
 (2, 6);
 
 

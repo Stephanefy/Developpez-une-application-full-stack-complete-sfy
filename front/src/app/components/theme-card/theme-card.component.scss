@@ -1,3 +1,5 @@
+@import "../../../styles/styles.scss";
+
 .theme-card {
     height: max-content;
     border: none;
@@ -7,6 +9,8 @@
 
     .theme-card-title{
         width: 100%;
+        height: 100%;
+        font-weight: 700;
     }
 
     .theme-card-subtitle {
@@ -31,6 +35,8 @@
             color: #fff;
         }
     }
+
+
 
 
 }

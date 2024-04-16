@@ -1,10 +1,14 @@
 import { AuthState } from "./interfaces/auth.interface";
 
+/**
+ * Retrieves the initial state of the authentication data from the local storage.
+ *
+ * @return {AuthState} The initial state of the authentication data.
+ */
 export const getInitialState = (): AuthState => {
     // Attempt to parse the stored auth data
     const storedUser = localStorage.getItem('user');
     const authStatus = localStorage.getItem('authStatus');
-    console.log("reached ?" , storedUser)
     if (storedUser && authStatus) {
       try {storedUser
         const user = JSON.parse(storedUser);

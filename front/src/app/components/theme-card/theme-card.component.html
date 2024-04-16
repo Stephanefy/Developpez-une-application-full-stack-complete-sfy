@@ -3,8 +3,8 @@
     <mat-card-title class="theme-card-title">{{ theme.name }}</mat-card-title>
   </mat-card-header>
   <mat-card-content class="theme-card-content">
-    {{ theme.description | slice : 0 : 500
-    }}{{ theme.description.length > 500 ? "..." : "" }}
+    {{ theme.description | slice : 0 : 300
+    }}{{ theme.description.length > 300 ? "..." : "" }}
   </mat-card-content>
   <div class="theme-card-button-group">
         <button mat-flat-button (click)="subscribe(theme.id)">S'abonner</button>

@@ -54,7 +54,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Map<String, String>> handleInvalidTokenException(DataIntegrityViolationException ex) {
         Map<String, String> errors = new HashMap<>();
-        errors.put("message", "A user registered with this email is already there");
+        errors.put("message", ex.getMessage());
         return new ResponseEntity<Map<String, String>>(errors, BAD_REQUEST);
     }
 

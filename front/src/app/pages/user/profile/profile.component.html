@@ -22,8 +22,8 @@
             }}</mat-card-title>
           </mat-card-header>
           <mat-card-content class="theme-card-content">
-            {{ subscription.description | slice : 0 : 500
-            }}{{ subscription.description.length > 500 ? "..." : "" }}
+            {{ subscription.description | slice : 0 : 200
+            }}{{ subscription.description.length > 200 ? "..." : "" }}
           </mat-card-content>
           <div class="theme-card-button-group">
             <button mat-flat-button (click)="unsubscribe(subscription.id)" >

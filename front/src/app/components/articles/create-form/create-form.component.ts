@@ -17,6 +17,7 @@ export class CreateFormComponent implements OnInit {
 
   public articleForm!: FormGroup;;
   public themes$: Observable<Theme[]> = this.themeApiService.all();
+  public error: string | null = null;
 
   constructor(
     private themeApiService: ThemeApiService,
@@ -60,18 +61,19 @@ export class CreateFormComponent implements OnInit {
       content: formValues.content
     }
 
-    console.log(newArticle)
       this.articleApiService.create(newArticle)
         .subscribe({
           next: (response) => {
             this.articleCreatedEmitter.emit(true);
           },
           error: (error) => {
-            console.error('Create failed', error);
+            this.error = error.error.mostSpecificCause.message;
           }
         });
   }
 
-
+  clearError(): void {
+    this.error = null;
+  }
 
 }

@@ -15,7 +15,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api/comments")
 @Log4j2
-@CrossOrigin(origins = "http://localhost:4200")
 public class CommentController {
 
     private ModelMapper modelMapper;
@@ -27,6 +26,13 @@ public class CommentController {
         this.modelMapper = new ModelMapper();
     }
 
+    /**
+     * Adds a comment to an article.
+     *
+     * @param  articleId    The ID of the article to add the comment to
+     * @param  commentDto   The data transfer object containing the comment details
+     * @return              ResponseEntity containing the added CommentDTO
+     */
     @PostMapping("/article/{articleId}")
     public ResponseEntity<CommentDTO> addCommentToArticle(@PathVariable Long articleId,
                                                           @Valid @RequestBody CreateCommentDTO commentDto) {
@@ -37,6 +43,13 @@ public class CommentController {
         return ResponseEntity.ok().body(modelMapper.map(comment, CommentDTO.class));
     }
 
+    /**
+     * Updates a comment with the given ID.
+     *
+     * @param  id          The ID of the comment to update
+     * @param  commentDto  The data transfer object containing the updated comment details
+     * @return             ResponseEntity containing the updated CommentDTO
+     */
     @PutMapping("/{id}")
     public ResponseEntity<CommentDTO> updateComment(@PathVariable Long id,
                                                     @Valid @RequestBody CommentDTO commentDto) {
@@ -52,6 +65,12 @@ public class CommentController {
         return ResponseEntity.ok().body(modelMapper.map(updatedComment, CommentDTO.class));
     }
 
+    /**
+     * Deletes a comment with the given ID.
+     *
+     * @param  id  The ID of the comment to delete
+     * @return     A ResponseEntity indicating the outcome of the deletion
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteComment(@PathVariable String id) throws Exception {
         log.info("Deleting comment {}", id);

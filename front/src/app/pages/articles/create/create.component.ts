@@ -17,7 +17,8 @@ export class CreateComponent implements OnInit {
   articleCreatedEvent(event: boolean) {
     if (event) {
       this.snackBar.open('Article créé', 'Fermer', {
-        duration: 3000
+        duration: 3000,
+        panelClass: ['snackbar-success']
       });
     }
   }

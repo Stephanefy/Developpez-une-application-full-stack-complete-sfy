@@ -8,6 +8,10 @@ main {
         margin: auto;
         width: 70%;
 
+        @include respond-to(xsmall) {
+            width: 100%;
+        }
+
         @include respond-to(small) {
             width: 100%;
         }
@@ -37,6 +41,10 @@ main {
             grid-template-columns: 1fr 1fr; /* This creates two columns of equal width */
             gap: 20px;  
 
+            @include respond-to(xsmall) {
+                grid-template-columns: 1fr;
+                gap:0;
+            }
 
             @include respond-to(small) {
                 grid-template-columns: 1fr;
@@ -54,6 +62,7 @@ main {
         
             .theme-card-title{
                 width: 100%;
+                font-weight: 700;
             }
         
             .theme-card-subtitle {
@@ -79,12 +88,21 @@ main {
                     color: #fff;
                 }
             }
+
+            @include respond-to(xsmall) {
+                margin: 1rem 0;
+                height: max-content;
+            }
             
             @include respond-to(small) {
                 margin: 1rem 0;
                 height: max-content;
             }
         
+        }
+
+        @include respond-to(xsmall) {
+            padding: 1rem;
         }
         
         @include respond-to(small) {

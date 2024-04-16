@@ -9,6 +9,7 @@ import com.openclassrooms.mddapi.services.ArticleService;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/article")
 @Log4j2
-@CrossOrigin(origins = "http://localhost:4200")
 public class ArticleController {
 
 
@@ -35,6 +35,12 @@ public class ArticleController {
         this.modelMapper = new ModelMapper();
     }
 
+
+    /**
+     * Retrieves all articles, maps them to DTOs, and sets the author DTO if present.
+     *
+     * @return          ResponseEntity containing a list of ArticleDTOs
+     */
     @GetMapping("")
     public ResponseEntity<List<ArticleDTO>> getAllArticles() {
         List<Article> articles = articleService.getAllArticles();
@@ -55,6 +61,13 @@ public class ArticleController {
         return ResponseEntity.ok().body(articleDtos);
     }
 
+
+    /**
+     * Retrieves all related articles to the subscription, maps them to DTOs, and sets the author DTO if present.
+     *
+     * @param  id  The ID of the subscription
+     * @return     ResponseEntity containing a list of ArticleDTOs
+     */
     @GetMapping("/subscribed/{id}")
     public ResponseEntity<List<ArticleDTO>> getAllRelatedArticlesToSubscription(@PathVariable("id") String id) {
         List<Article> subscribedThemesArticles = articleService.getAllRelatedThemeArticles(Long.valueOf(id));
@@ -74,7 +87,12 @@ public class ArticleController {
 
         return ResponseEntity.ok().body(articleDtos);
     }
-
+    /**
+     * Retrieves an article by its ID.
+     *
+     * @param  id  The ID of the article
+     * @return     ResponseEntity containing the ArticleDTO of the retrieved article
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ArticleDTO> getArticleById(@PathVariable("id") String id) {
 
@@ -92,19 +110,36 @@ public class ArticleController {
 
     }
 
+    /**
+     * Creates a new article based on the provided data in the CreateArticleDTO.
+     *
+     * @param  articleDto    The data transfer object containing information for the new article
+     * @return               ResponseEntity indicating the successful creation of the article
+     */
     @PostMapping()
     public ResponseEntity<?> createArticle(@Valid @RequestBody CreateArticleDTO articleDto) {
         log.info("article themes {}",articleDto.getThemes());
-
+        Article createdArticle;
 
         Article newArticle = modelMapper.map(articleDto, Article.class);
+        try {
+            createdArticle = articleService.createArticle(newArticle, articleDto.getAuthor(), articleDto.getThemes());
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.badRequest().body(e);
 
-        Article createdArticle = articleService.createArticle(newArticle, articleDto.getAuthor(), articleDto.getThemes());
+        }
         URI location = URI.create("/api/article/" + createdArticle.getId());
 
         return ResponseEntity.created(location).build();
     }
 
+    /**
+     * Updates an article.
+     *
+     * @param  id          The ID of the article to update
+     * @param  articleDto  The data transfer object containing updated information for the article
+     * @return             ResponseEntity containing the updated ArticleDTO
+     */
     @PutMapping("/{id}")
     public ResponseEntity<?> updateArticle(@PathVariable("id") String id, @Valid @RequestBody CreateArticleDTO articleDto) {
         try {
@@ -115,7 +150,14 @@ public class ArticleController {
             return ResponseEntity.badRequest().build();
         }
     }
-    //TODO: after implementing frontend comeback to this route
+    
+
+    /**
+     * Deletes an article by its ID.
+     *
+     * @param  id  The ID of the article to delete
+     * @return     ResponseEntity indicating the successful deletion of the article
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteArticle(@PathVariable("id") String id) {
         try {

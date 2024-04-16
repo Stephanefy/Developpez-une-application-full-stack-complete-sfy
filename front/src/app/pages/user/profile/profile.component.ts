@@ -17,7 +17,6 @@ import { selectAuth } from 'src/app/state/auth.selectors';
 export class ProfileComponent implements OnInit {
 
 
-  // public user$ = new Observable();
   public auth$ = this.store.select(selectAuth);
   public subscriptions$!: Observable<Theme[]>;
   public currentUser!: User;
@@ -45,7 +44,7 @@ export class ProfileComponent implements OnInit {
         this.subscriptions$ = this.userApiService.getSubscriptions(this.currentUser.userId);
         this.matSnackBar.open('Désabonnement enregistré', 'Fermer', {
           duration: 2000,
-          panelClass: ['custom-snack-bar']
+          panelClass: ['snackbar-success']
         });
       },
       error: (error) => {
@@ -62,7 +61,7 @@ export class ProfileComponent implements OnInit {
     if(status) {
       this.matSnackBar.open('Informations mis à jour', 'Fermer', {
         duration: 2000,
-        panelClass: ['custom-snack-bar']
+        panelClass: ['snackbar-success']
       });
     }
   }

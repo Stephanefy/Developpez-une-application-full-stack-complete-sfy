@@ -40,7 +40,6 @@ export class NavbarComponent implements OnInit {
       this.isUserProfilActive = event.url.includes('user') ? true : false;
     });
 
-    this.store.select(selectAuth).subscribe(authState => console.log(authState));
 
   }
 

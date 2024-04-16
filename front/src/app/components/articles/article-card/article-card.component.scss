@@ -12,6 +12,7 @@
     .article-card-title{
         width: 100%;
         font-size: 24px;
+        font-weight: 700;
     }
 
     .article-card-subtitle {
@@ -23,6 +24,11 @@
         align-items: center;
     }
 
+    @include respond-to(xsmall) {
+        margin: 1rem 0;
+        height: max-content;
+        padding: 1.5rem;
+    }
 
     @include respond-to(small) {
         margin: 1rem 0;

@@ -15,15 +15,21 @@
         padding: 0.5rem 1rem;
         background-color: #7763c5;
         color: #fff;
+        font-size: 1em;
+        font-weight: bold;
     }
 
     .sort-button {
         border: none;
         font-weight: 700;
+        text-align: right;
+        display: flex;
+        justify-content: flex-end;
         cursor: pointer;
-        font-size: 1.2rem;
         background-color: transparent;
         color: #000;
+        margin: 0;
+        padding: 0;
 
         span {
             margin: auto 0;
@@ -42,6 +48,13 @@
         }
     }
 
+    @include respond-to(xsmall) {
+        .article-buttons-group {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
     @include respond-to(small) {
         .article-buttons-group {
             flex-direction: column;
@@ -56,6 +69,12 @@
     grid-template-columns: 1fr 1fr; /* This creates two columns of equal width */
     gap: 20px; 
     place-items: center;/* Optional: Adds space between the columns */
+
+
+    @include respond-to(xsmall) {
+        grid-template-columns: 1fr;
+        gap:0;
+    }
 
     @include respond-to(small) {
         grid-template-columns: 1fr;
