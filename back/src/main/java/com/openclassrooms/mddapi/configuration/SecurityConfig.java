@@ -1,10 +1,9 @@
 package com.openclassrooms.mddapi.configuration;
 
 
-import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.repositories.UserRepository;
 import com.openclassrooms.mddapi.security.JWTAuthFilter;
 import com.openclassrooms.mddapi.services.impl.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -29,14 +28,17 @@ public class SecurityConfig {
 
 
 
-    @Autowired
-    JWTAuthFilter jwtAuthFilter;
+    private JWTAuthFilter jwtAuthFilter;
 
-    @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
     private UserRepository userRepository;
+
+    public SecurityConfig(JWTAuthFilter jwtAuthFilter, UserDetailsServiceImpl userDetailsService, UserRepository userRepository) {
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.userDetailsService = userDetailsService;
+        this.userRepository = userRepository;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -45,9 +47,9 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.antMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
-                                .antMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                                .antMatchers(HttpMethod.GET, "/api/auth/renew/**").permitAll()
+                        auth.antMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                                .antMatchers(HttpMethod.GET, "/auth/renew/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

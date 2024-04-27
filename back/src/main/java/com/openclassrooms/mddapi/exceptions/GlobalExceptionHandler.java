@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.exceptions;
 
 
-import com.openclassrooms.mddapi.responses.ApiErrorResponse;
+import com.openclassrooms.mddapi.domains.responses.ApiErrorResponse;
 import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;

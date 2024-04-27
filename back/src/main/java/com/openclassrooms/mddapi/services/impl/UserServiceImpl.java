@@ -1,12 +1,11 @@
 package com.openclassrooms.mddapi.services.impl;
 
-import com.openclassrooms.mddapi.domain.models.Theme;
-import com.openclassrooms.mddapi.domain.models.User;
+import com.openclassrooms.mddapi.domains.models.Theme;
+import com.openclassrooms.mddapi.domains.models.User;
 import com.openclassrooms.mddapi.exceptions.NotFoundException;
-import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.repositories.UserRepository;
 import com.openclassrooms.mddapi.services.UserService;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,8 +16,13 @@ import java.util.Set;
 @Log4j2
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     UserRepository userRepository;
+
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
     public User createUser(User createUser) {
         return null;

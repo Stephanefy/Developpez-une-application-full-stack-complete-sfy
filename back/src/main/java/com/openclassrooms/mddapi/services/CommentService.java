@@ -1,6 +1,6 @@
 package com.openclassrooms.mddapi.services;
 
-import com.openclassrooms.mddapi.domain.models.Comment;
+import com.openclassrooms.mddapi.domains.models.Comment;
 
 public interface CommentService {
     Comment addCommentToArticle(Long articleId, Long authorId, String content);

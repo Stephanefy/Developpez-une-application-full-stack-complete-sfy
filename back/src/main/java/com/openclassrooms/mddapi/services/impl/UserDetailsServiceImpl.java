@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.services.impl;
 
-import com.openclassrooms.mddapi.domain.models.User;
-import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.domains.models.User;
+import com.openclassrooms.mddapi.repositories.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

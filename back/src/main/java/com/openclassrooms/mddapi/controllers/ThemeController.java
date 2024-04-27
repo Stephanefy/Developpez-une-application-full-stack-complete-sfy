@@ -1,13 +1,12 @@
 package com.openclassrooms.mddapi.controllers;
 
-import com.openclassrooms.mddapi.domain.dtos.theme.CreateThemeDTO;
-import com.openclassrooms.mddapi.domain.dtos.theme.ThemeDTO;
-import com.openclassrooms.mddapi.domain.models.Theme;
+import com.openclassrooms.mddapi.domains.dtos.theme.CreateThemeDTO;
+import com.openclassrooms.mddapi.domains.dtos.theme.ThemeDTO;
+import com.openclassrooms.mddapi.domains.models.Theme;
 import com.openclassrooms.mddapi.exceptions.NotFoundException;
 import com.openclassrooms.mddapi.services.ThemeService;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,18 +16,18 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/themes")
+@RequestMapping("/themes")
 @Log4j2
 public class ThemeController {
 
     private ModelMapper modelMapper;
 
 
-    @Autowired
     private ThemeService themeService;
 
-    public ThemeController() {
-        this.modelMapper = new ModelMapper();
+    public ThemeController(ModelMapper modelMapper, ThemeService themeService) {
+        this.modelMapper = modelMapper;
+        this.themeService = themeService;
     }
         /**
      * Retrieves all themes, maps them to DTOs using modelMapper, and returns a ResponseEntity containing a list of ThemeDTOs.
@@ -37,6 +36,7 @@ public class ThemeController {
      */
     @GetMapping()
     public ResponseEntity<List<ThemeDTO>> getAllThemes() {
+        log.info("reached");
         List<Theme> themes = themeService.getAllThemes();
 
         List<ThemeDTO> themeDtos = themes.stream()

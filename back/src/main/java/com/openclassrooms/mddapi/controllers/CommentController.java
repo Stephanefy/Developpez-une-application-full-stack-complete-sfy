@@ -1,8 +1,8 @@
 package com.openclassrooms.mddapi.controllers;
 
-import com.openclassrooms.mddapi.domain.dtos.comment.CommentDTO;
-import com.openclassrooms.mddapi.domain.dtos.comment.CreateCommentDTO;
-import com.openclassrooms.mddapi.domain.models.Comment;
+import com.openclassrooms.mddapi.domains.dtos.comment.CommentDTO;
+import com.openclassrooms.mddapi.domains.dtos.comment.CreateCommentDTO;
+import com.openclassrooms.mddapi.domains.models.Comment;
 import com.openclassrooms.mddapi.services.CommentService;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/comments")
+@RequestMapping("/comments")
 @Log4j2
 public class CommentController {
 
@@ -22,8 +22,9 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    public CommentController() {
-        this.modelMapper = new ModelMapper();
+    public CommentController(ModelMapper modelMapper, CommentService commentService) {
+        this.modelMapper = modelMapper;
+        this.commentService = commentService;
     }
 
     /**

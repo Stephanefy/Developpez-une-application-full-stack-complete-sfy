@@ -1,18 +1,17 @@
 package com.openclassrooms.mddapi.controllers;
 
 
-import com.openclassrooms.mddapi.domain.dtos.user.CreateUserDTO;
-import com.openclassrooms.mddapi.domain.dtos.user.LoginUserDTO;
-import com.openclassrooms.mddapi.domain.models.User;
+import com.openclassrooms.mddapi.domains.dtos.user.CreateUserDTO;
+import com.openclassrooms.mddapi.domains.dtos.user.LoginUserDTO;
+import com.openclassrooms.mddapi.domains.models.User;
 import com.openclassrooms.mddapi.exceptions.NotFoundException;
-import com.openclassrooms.mddapi.responses.TokenResponse;
+import com.openclassrooms.mddapi.domains.responses.TokenResponse;
 import com.openclassrooms.mddapi.security.JWTUtils;
 import com.openclassrooms.mddapi.services.AuthService;
 import com.openclassrooms.mddapi.services.UserService;
-import com.openclassrooms.mddapi.utils.validation.EmailValidator;
+import com.openclassrooms.mddapi.utils.validation.EmailValidatorUtils;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,24 +22,25 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @Log4j2
 public class AuthController {
 
-    private ModelMapper modelMapper;
+
+    private final ModelMapper modelMapper;
 
 
-    @Autowired
-    AuthenticationManager authenticationManager;
-    @Autowired
+    private AuthenticationManager authenticationManager;
     private AuthService authService;
 
-    @Autowired
     private UserService userService;
 
 
-    public AuthController() {
-        this.modelMapper = new ModelMapper();
+    public AuthController(ModelMapper modelMapper , AuthenticationManager authenticationManager, AuthService authService, UserService userService) {
+        this.modelMapper = modelMapper;
+        this.authenticationManager = authenticationManager;
+        this.authService = authService;
+        this.userService = userService;
     }
 
     /**
@@ -51,7 +51,8 @@ public class AuthController {
      */
     @PostMapping(path= "/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginUserDTO loginDto) {
-        if (!EmailValidator.isValidEmail(loginDto.getUsernameOrEmail())) {
+        log.info("jifjdsklfsdjfk {}", loginDto);
+        if (!EmailValidatorUtils.isValidEmail(loginDto.getUsernameOrEmail())) {
             try {
                 User user = userService.getUserByUsername(loginDto.getUsernameOrEmail());
                 loginDto.setUsernameOrEmail(user.getEmail());

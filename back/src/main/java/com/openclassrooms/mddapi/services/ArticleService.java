@@ -1,6 +1,6 @@
 package com.openclassrooms.mddapi.services;
 
-import com.openclassrooms.mddapi.domain.models.Article;
+import com.openclassrooms.mddapi.domains.models.Article;
 
 import java.util.List;
 import java.util.Optional;

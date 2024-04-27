@@ -1,9 +1,8 @@
 package com.openclassrooms.mddapi.services.impl;
 
-import com.openclassrooms.mddapi.domain.models.User;
-import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.domains.models.User;
+import com.openclassrooms.mddapi.repositories.UserRepository;
 import com.openclassrooms.mddapi.services.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +10,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
     private UserRepository userRepository;
+
+
+    public AuthServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+    }
 
 
     @Override

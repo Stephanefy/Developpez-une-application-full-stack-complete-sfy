@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.services;
 
-import com.openclassrooms.mddapi.domain.models.Theme;
-import com.openclassrooms.mddapi.domain.models.User;
+import com.openclassrooms.mddapi.domains.models.Theme;
+import com.openclassrooms.mddapi.domains.models.User;
 
 import java.util.Set;
 

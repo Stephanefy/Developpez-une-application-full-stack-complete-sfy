@@ -1,13 +1,12 @@
 package com.openclassrooms.mddapi.services.impl;
 
-import com.openclassrooms.mddapi.domain.models.Theme;
-import com.openclassrooms.mddapi.domain.models.User;
+import com.openclassrooms.mddapi.domains.models.Theme;
+import com.openclassrooms.mddapi.domains.models.User;
 import com.openclassrooms.mddapi.exceptions.NotFoundException;
-import com.openclassrooms.mddapi.repository.ThemeRepository;
-import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.repositories.ThemeRepository;
+import com.openclassrooms.mddapi.repositories.UserRepository;
 import com.openclassrooms.mddapi.services.ThemeService;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,11 +17,16 @@ import java.util.Optional;
 @Log4j2
 public class ThemeServiceImpl implements ThemeService {
 
-    @Autowired
     ThemeRepository themeRepository;
 
-    @Autowired
     UserRepository userRepository;
+
+
+    public ThemeServiceImpl(ThemeRepository themeRepository, UserRepository userRepository) {
+        this.themeRepository = themeRepository;
+        this.userRepository = userRepository;
+    }
+
     @Override
     public Theme createTheme(Theme theme) {
         return themeRepository.save(theme);

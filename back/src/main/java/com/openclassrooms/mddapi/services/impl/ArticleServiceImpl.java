@@ -1,12 +1,12 @@
 package com.openclassrooms.mddapi.services.impl;
 
-import com.openclassrooms.mddapi.domain.models.Article;
-import com.openclassrooms.mddapi.domain.models.Theme;
-import com.openclassrooms.mddapi.domain.models.User;
+import com.openclassrooms.mddapi.domains.models.Article;
+import com.openclassrooms.mddapi.domains.models.Theme;
+import com.openclassrooms.mddapi.domains.models.User;
 import com.openclassrooms.mddapi.exceptions.NotFoundException;
-import com.openclassrooms.mddapi.repository.ArticleRepository;
-import com.openclassrooms.mddapi.repository.ThemeRepository;
-import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.repositories.ArticleRepository;
+import com.openclassrooms.mddapi.repositories.ThemeRepository;
+import com.openclassrooms.mddapi.repositories.UserRepository;
 import com.openclassrooms.mddapi.services.ArticleService;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.Hibernate;
@@ -25,14 +25,20 @@ import java.util.Set;
 @Log4j2
 public class ArticleServiceImpl implements ArticleService {
 
-    @Autowired
-    ArticleRepository articleRepository;
+    private ArticleRepository articleRepository;
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
     ThemeRepository themeRepository;
+
+
+    public ArticleServiceImpl(ArticleRepository articleRepository, UserRepository userRepository, ThemeRepository themeRepository) {
+        this.articleRepository = articleRepository;
+        this.userRepository = userRepository;
+        this.themeRepository = themeRepository;
+    }
 
 
     @Override

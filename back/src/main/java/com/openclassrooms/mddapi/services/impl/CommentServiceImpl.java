@@ -1,15 +1,14 @@
 package com.openclassrooms.mddapi.services.impl;
 
-import com.openclassrooms.mddapi.domain.models.Article;
-import com.openclassrooms.mddapi.domain.models.Comment;
-import com.openclassrooms.mddapi.domain.models.User;
+import com.openclassrooms.mddapi.domains.models.Article;
+import com.openclassrooms.mddapi.domains.models.Comment;
+import com.openclassrooms.mddapi.domains.models.User;
 import com.openclassrooms.mddapi.exceptions.NotFoundException;
-import com.openclassrooms.mddapi.repository.ArticleRepository;
-import com.openclassrooms.mddapi.repository.CommentRepository;
-import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.repositories.ArticleRepository;
+import com.openclassrooms.mddapi.repositories.CommentRepository;
+import com.openclassrooms.mddapi.repositories.UserRepository;
 import com.openclassrooms.mddapi.services.CommentService;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,15 +19,17 @@ import java.util.Optional;
 public class CommentServiceImpl implements CommentService {
 
 
-    @Autowired
     CommentRepository commentRepository;
 
-    @Autowired
     UserRepository userRepository;
 
-    @Autowired
     ArticleRepository articleRepository;
 
+    public CommentServiceImpl(CommentRepository commentRepository, UserRepository userRepository, ArticleRepository articleRepository) {
+        this.commentRepository = commentRepository;
+        this.userRepository = userRepository;
+        this.articleRepository = articleRepository;
+    }
 
     @Override
     public Comment addCommentToArticle(Long articleId, Long authorId, String content) {

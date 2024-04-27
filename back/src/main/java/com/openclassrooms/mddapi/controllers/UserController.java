@@ -1,15 +1,14 @@
 package com.openclassrooms.mddapi.controllers;
 
-import com.openclassrooms.mddapi.domain.dtos.theme.ThemeDTO;
-import com.openclassrooms.mddapi.domain.dtos.user.CreateUserDTO;
-import com.openclassrooms.mddapi.domain.dtos.user.UpdateDTO;
-import com.openclassrooms.mddapi.domain.dtos.user.UserDTO;
-import com.openclassrooms.mddapi.domain.models.User;
+import com.openclassrooms.mddapi.domains.dtos.theme.ThemeDTO;
+import com.openclassrooms.mddapi.domains.dtos.user.CreateUserDTO;
+import com.openclassrooms.mddapi.domains.dtos.user.UpdateDTO;
+import com.openclassrooms.mddapi.domains.dtos.user.UserDTO;
+import com.openclassrooms.mddapi.domains.models.User;
 import com.openclassrooms.mddapi.services.ThemeService;
 import com.openclassrooms.mddapi.services.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,21 +17,21 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 @Log4j2
 public class UserController {
 
     private ModelMapper modelMapper;
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private ThemeService themeService;
 
 
-    public UserController() {
-        this.modelMapper = new ModelMapper();
+    public UserController(ModelMapper modelMapper, UserService userService, ThemeService themeService) {
+        this.modelMapper = modelMapper;
+        this.userService = userService;
+        this.themeService = themeService;
     }
 
     /**

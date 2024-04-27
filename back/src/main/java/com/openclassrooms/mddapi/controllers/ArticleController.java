@@ -1,14 +1,13 @@
 package com.openclassrooms.mddapi.controllers;
 
 
-import com.openclassrooms.mddapi.domain.dtos.article.ArticleDTO;
-import com.openclassrooms.mddapi.domain.dtos.article.CreateArticleDTO;
-import com.openclassrooms.mddapi.domain.dtos.user.UserDTO;
-import com.openclassrooms.mddapi.domain.models.Article;
+import com.openclassrooms.mddapi.domains.dtos.article.ArticleDTO;
+import com.openclassrooms.mddapi.domains.dtos.article.CreateArticleDTO;
+import com.openclassrooms.mddapi.domains.dtos.user.UserDTO;
+import com.openclassrooms.mddapi.domains.models.Article;
 import com.openclassrooms.mddapi.services.ArticleService;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,19 +19,19 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/article")
+@RequestMapping("/article")
 @Log4j2
 public class ArticleController {
 
 
     private ModelMapper modelMapper;
 
-    @Autowired
     private ArticleService articleService;
 
 
-    public ArticleController() {
-        this.modelMapper = new ModelMapper();
+    public ArticleController(ModelMapper modelMapper, ArticleService articleService) {
+        this.modelMapper = modelMapper;
+        this.articleService = articleService;
     }
 
 
