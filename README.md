@@ -1,25 +1,45 @@
 # P6-Full-Stack-reseau-dev
 
-## Front
+# MDD (Monde de Dev) 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+This project is the MVP version of MDD, a social network application aiming at software developers. This version does not implement all featurs yet. So far, users can register and login to view their feed of articles related to themes that they subscribe to, they can also comment on articles, write new articles, subscribe or unsubscribe to new themes.
 
-Don't forget to install your node_modules before starting (`npm install`).
+## Technology stack
 
-### Development server
+### Front 
+- Angular
+- NgRx
+- Angular Material
+  
+### Back
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Spring
+- Spring Boot
+- Lombok
 
-### Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 1. Installation
 
-### Where to start
+### Front
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
+First install the dependencies by running `npm install` then the Angular application will be available at `localhost:4200`.
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get ride of it.
 
-Good luck!
+### Back
+
+Run `mvn clean install` to build the project.
+Start the Spring Boot application by running `mvn spring-boot:run` or using your IDE.
+The backend will be accessible at `localhost:8080`.
+
+### 2. Database
+
+MDD uses a MySQL database. You'll need to have a MySQL server running and accessible.
+Follow the `application.properties.example` file to setup your own `application.properties`file.
+Update the application.properties file in the src/main/resources directory with your database credentials `(DB_NAME, DB_USERNAME, DB_PASSWORD)`.
+
+### 3. License
+This project is licensed under the MIT License.
+
+Let me know if you'd like any further adjustments or additions to the README!
+
