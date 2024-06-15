@@ -14,6 +14,11 @@ import { User } from '../interfaces/user.interface';
 @Injectable()
 export class AuthEffects {
 
+  snackBarConfig = {
+    duration: 3000,
+    panelClass: ['snackbar-success']
+  }
+
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.login),
@@ -25,9 +30,8 @@ export class AuthEffects {
           return AuthActions.loginSuccess({ token: token, user: jwtDecode(token), isAuthenticated: true });
           }),
         tap(() => {
-            this.snackBar.open('Connexion réussie!', 'Close', {
-                duration: 3000,
-              });
+      
+            this.snackBar.open('Connexion réussie!', 'Fermer', this.snackBarConfig);
         }),
         //   map(user => AuthActions.loginSuccess({ user })),
           catchError(error => {
@@ -53,13 +57,13 @@ export class AuthEffects {
             return AuthActions.loginSuccess({ token: token, user: jwtDecode(token), isAuthenticated: true });
             }),
             tap(() => {
-                this.snackBar.open('Inscription réussie!', 'Fermer', {
-                    duration: 3000,
-                  });
+                this.snackBar.open('Inscription réussie!', 'Fermer', this.snackBarConfig);
             }),
         //   map(user => AuthActions.loginSuccess({ user })),
           catchError(error => {
-            console.log(error)
+            if (error.includes("constraint")) {
+              return of(AuthActions.loginFailure({ error: "Cet utilisateur existe déjà" }));
+            }
 
             return of(AuthActions.loginFailure({ error })) 
           
@@ -113,9 +117,7 @@ export class AuthEffects {
         tap(() => {
           this.localStorageService.removeItem('user');
           this.localStorageService.removeItem('authStatus');
-          this.snackBar.open('Deconnexion!', 'Fermer', {
-            duration: 3000,
-          });
+          this.snackBar.open('Deconnexion!', 'Fermer', this.snackBarConfig);
           this.router.navigate(['/connexion']);
         })
       ),

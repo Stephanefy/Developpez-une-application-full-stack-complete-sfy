@@ -1,9 +1,9 @@
 <main>
     <app-back-button></app-back-button>
-    <article class="article-details">
+    <article *ngIf="article" class="article-details">
         <h1>{{ article.title }}</h1>
         <div class="article-details-subtitle">
-            <p>{{ article.publicationDate | date: 'longDate' : '+0000' }}</p>
+            <p>{{ article.publicationDate | date: 'longDate' : '+0000'  }}</p>
             <p>{{ article.author.username }}</p>
             <ul>
                 <li class="theme" *ngFor="let theme of article.themes">

@@ -40,7 +40,7 @@ public class JWTUtils {
      * @param  token  The JWT token from which to extract the username
      * @return        The extracted username
      */
-    public static String extractUsername(String token) {
+    public static String extractSubject(String token) {
         return getTokenBody(token).getSubject();
     }
     /**
@@ -66,7 +66,7 @@ public class JWTUtils {
      * @return             True if the token is valid, false otherwise
      */
     public static Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
+        final String username = extractSubject(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 

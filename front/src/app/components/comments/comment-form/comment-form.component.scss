@@ -1,3 +1,6 @@
+@import "../../../../styles/styles.scss";
+
+
 .comment-form {
     display: flex;
     justify-content: space-between;
@@ -9,3 +12,15 @@
 
 }
 
+
+svg {
+
+
+    @include respond-to(small) {
+        width: 25px;
+    }
+
+    @include respond-to(xsmall) {
+        width: 25px;
+    }
+}

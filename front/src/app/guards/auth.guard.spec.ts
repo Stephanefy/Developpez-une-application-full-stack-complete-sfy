@@ -1,13 +1,16 @@
 import { TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
-import { CanActivateGuard } from './auth.guard';
+import { AuthGuard } from './auth.guard';
 
 describe('CanActivateGuard', () => {
-  let guard: CanActivateGuard;
+  let guard: AuthGuard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    guard = TestBed.inject(CanActivateGuard);
+    TestBed.configureTestingModule({
+      providers: [provideMockStore({})]
+    });
+    guard = TestBed.inject(AuthGuard);
   });
 
   it('should be created', () => {

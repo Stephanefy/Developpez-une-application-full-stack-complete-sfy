@@ -61,7 +61,29 @@
         }
     }
 
+    @include respond-to(medium) {
+        padding: 2rem;
+    }
+
     @include respond-to(small) {
         padding: 2rem;
+
+        .article-details-subtitle  {
+           
+            gap: 20px;
+            font-size: 1rem;
+            width: 100px;
+        }
+    }
+
+    @include respond-to(xsmall) {
+        padding: 2rem;
+
+        .article-details-subtitle  {
+          
+            gap: 20px;
+            font-size: 1rem;
+            width: 100px;          
+        }
     }
 }

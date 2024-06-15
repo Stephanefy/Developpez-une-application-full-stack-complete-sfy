@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoginRequest } from './interfaces/LoginRequest';
 import { RegisterRequest } from './interfaces/RegisterRequest';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { selectAuth, selectAuthError } from 'src/app/state/auth.selectors';
 import { register, login, clearErrors } from 'src/app/state/auth.actions';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth-form',
@@ -14,15 +13,24 @@ import { Observable } from 'rxjs';
   styleUrls: ['./auth-form.component.scss'],
 })
 export class AuthFormComponent implements OnInit {
-  public isLogin: boolean = false;
+  public isLoginForm: boolean = false;
   public auth$ = this.store.select(selectAuth);
   public authForm = this.fb.group({
-    usernameOrEmail: ['', [Validators.required]],
-    username: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    usernameOrEmail: [
+      '',
+      [this.isLoginForm ? Validators.required : Validators.nullValidator],
+    ],
+    username: [
+      '',
+      [this.isLoginForm ? Validators.required : Validators.nullValidator],
+    ],
+    email: [
+      '',
+      [this.isLoginForm ? Validators.required : Validators.nullValidator],
+    ],
+    password: ['', [Validators.required, Validators.minLength(8)]],
   });
-  public error$ = this.store.select(selectAuthError)
+  public error$ = this.store.select(selectAuthError);
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
@@ -30,38 +38,36 @@ export class AuthFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isLogin =
+    clearErrors();
+    this.isLoginForm =
       this.route.snapshot.routeConfig?.path === 'connexion' && true;
-
   }
 
   submit(): void {
-    if (this.isLogin) {
+    if (this.isLoginForm) {
       const loginRequest = this.authForm.value as LoginRequest;
 
-      
-
       const request = {
-        usernameOrEmail: loginRequest.usernameOrEmail,
+        usernameOrEmail: loginRequest.usernameOrEmail as string,
         password: loginRequest.password,
       };
-      this.store.dispatch(login(request));
-     
-    } else {
+
+      this.authForm.status !== 'INVALID' && this.store.dispatch(login(request));
+    } else if (!this.isLoginForm) {
       const registerRequest = this.authForm.value as RegisterRequest;
 
-      
       const request = {
         email: registerRequest.email,
         username: registerRequest.username,
         password: registerRequest.password,
       };
-      this.store.dispatch(register(request));
+
+      this.authForm.status !== 'INVALID' &&
+        this.store.dispatch(register(request));
     }
   }
 
-  clearError(): void {
-    
-    this.store.dispatch(clearErrors())
+  clearErrors(): void {
+    this.store.dispatch(clearErrors());
   }
 }

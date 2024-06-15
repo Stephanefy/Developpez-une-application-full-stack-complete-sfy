@@ -21,7 +21,6 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router: Router, 
     private store: Store,
-    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {

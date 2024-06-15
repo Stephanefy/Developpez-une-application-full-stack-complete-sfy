@@ -29,14 +29,14 @@ public class AuthController {
 
     private final ModelMapper modelMapper;
 
-
     private AuthenticationManager authenticationManager;
+
     private AuthService authService;
 
     private UserService userService;
 
 
-    public AuthController(ModelMapper modelMapper , AuthenticationManager authenticationManager, AuthService authService, UserService userService) {
+    public AuthController(ModelMapper modelMapper, AuthenticationManager authenticationManager, AuthService authService, UserService userService) {
         this.modelMapper = modelMapper;
         this.authenticationManager = authenticationManager;
         this.authService = authService;
@@ -46,12 +46,12 @@ public class AuthController {
     /**
      * Endpoint for user login.
      *
-     * @param  loginDto   The DTO containing user login information
-     * @return           ResponseEntity containing the user's authentication token
+     * @param loginDto The DTO containing user login information
+     * @return ResponseEntity containing the user's authentication token
      */
-    @PostMapping(path= "/login")
+    @PostMapping(path = "/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginUserDTO loginDto) {
-        log.info("jifjdsklfsdjfk {}", loginDto);
+        // Check if it's a username instead of an email
         if (!EmailValidatorUtils.isValidEmail(loginDto.getUsernameOrEmail())) {
             try {
                 User user = userService.getUserByUsername(loginDto.getUsernameOrEmail());
@@ -86,34 +86,34 @@ public class AuthController {
     /**
      * Registers a new user using the provided user data and returns a ResponseEntity containing the user's authentication token.
      *
-     * @param  registerDto   The DTO containing user registration information
-     * @return               ResponseEntity containing the user's authentication token
+     * @param registerDto The DTO containing user registration information
+     * @return ResponseEntity containing the user's authentication token
      */
     @PostMapping(path = "/register")
-    public ResponseEntity<?> register(@Valid @RequestBody CreateUserDTO registerDto)  {
-            User convertedUserDto = convertToUserEntity(registerDto);
+    public ResponseEntity<?> register(@Valid @RequestBody CreateUserDTO registerDto) {
+        User convertedUserDto = convertToUserEntity(registerDto);
 
-            try {
-                User registeredUser = authService.register(convertedUserDto);
-                String token = JWTUtils.generateToken(registeredUser.getEmail(), registeredUser.getUsername(), registeredUser.getId());
-                TokenResponse tokenResponse = new TokenResponse(token);
-                return ResponseEntity.ok(tokenResponse);
-            } catch (Error e) {
-                log.error("Registration error: ", e);
-                return ResponseEntity.badRequest().body("L'email ou le nom d'utilisateur est déjà enregistré chez nous");
-            }
+        try {
+            User registeredUser = authService.register(convertedUserDto);
+            String token = JWTUtils.generateToken(registeredUser.getEmail(), registeredUser.getUsername(), registeredUser.getId());
+            TokenResponse tokenResponse = new TokenResponse(token);
+            return ResponseEntity.ok(tokenResponse);
+        } catch (Error e) {
+            log.error("Registration error: ", e);
+            return ResponseEntity.badRequest().body("L'email ou le nom d'utilisateur est déjà enregistré chez nous");
+        }
     }
 
     /**
      * Retrieves a token for renewing the user's authentication.
      *
-     * @param  id   The ID of the user
-     * @return     ResponseEntity containing the renewed token
+     * @param id The ID of the user
+     * @return ResponseEntity containing the renewed token
      */
     @GetMapping(path = "/renew/{id}")
     public ResponseEntity<TokenResponse> renewToken(@PathVariable("id") String id) {
 
-        User user =  userService.getUserById(Long.valueOf(id));
+        User user = userService.getUserById(Long.valueOf(id));
         String token = JWTUtils.generateToken(user.getEmail(), user.getUsername(), user.getId());
         TokenResponse tokenResponse = new TokenResponse(token);
 
@@ -123,8 +123,8 @@ public class AuthController {
     /**
      * A method to convert a User object to a CreateUserDTO object.
      *
-     * @param  user  The User object to be converted
-     * @return      The converted CreateUserDTO object
+     * @param user The User object to be converted
+     * @return The converted CreateUserDTO object
      */
     private CreateUserDTO convertToUserDto(User user) {
         CreateUserDTO registerDto = modelMapper.map(user, CreateUserDTO.class);
@@ -135,8 +135,8 @@ public class AuthController {
     /**
      * A method to convert a CreateUserDTO object to a User object.
      *
-     * @param  registerDto  The CreateUserDTO object to be converted
-     * @return              The converted User object
+     * @param registerDto The CreateUserDTO object to be converted
+     * @return The converted User object
      */
     private User convertToUserEntity(CreateUserDTO registerDto) {
 

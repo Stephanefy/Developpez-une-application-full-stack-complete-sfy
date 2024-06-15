@@ -1,7 +1,7 @@
 <form class="auth-form" [formGroup]="authForm" (ngSubmit)="submit()">
-  <span *ngIf="isLogin">Email ou nom d'utilisateur</span>
+  <span *ngIf="isLoginForm">Email ou nom d'utilisateur</span>
   <mat-form-field
-    *ngIf="isLogin"
+    *ngIf="isLoginForm"
     class="form-group"
     appearance="outline"
     hideRequiredMarker="true"
@@ -13,19 +13,19 @@
       type="text"
       class="form-control"
       id="usernameOrEmail"
-      (focus)="clearError()"
+      (focus)="clearErrors()"
     />
     <mat-error *ngIf="authForm.get('usernameOrEmail')?.hasError('required')"
       >le nom d'utilisateur ou l'email est requis</mat-error
     >
   </mat-form-field>
-  <span *ngIf="!isLogin">Nom d'utilisateur</span>
+  <span *ngIf="!isLoginForm">Nom d'utilisateur</span>
   <mat-form-field
-    *ngIf="!isLogin"
+    *ngIf="!isLoginForm"
     class="form-group"
     appearance="outline"
     hideRequiredMarker="true"
-    (focus)="clearError()"
+    (focus)="clearErrors()"
   >
     <mat-label for="username" hidden>Nom d'utilisateur</mat-label>
     <input
@@ -34,16 +34,16 @@
       type="text"
       class="form-control"
       id="username"
-      (focus)="clearError()"
+      (focus)="clearErrors()"
 
     />
     <mat-error *ngIf="authForm.get('username')?.hasError('required')"
       >le nom d'utilisateur est requis</mat-error
     >
   </mat-form-field>
-  <span *ngIf="!isLogin">Adresse e-mail</span>
+  <span *ngIf="!isLoginForm">Adresse e-mail</span>
   <mat-form-field
-    *ngIf="!isLogin"
+    *ngIf="!isLoginForm"
     class="form-group"
     appearance="outline"
     hideRequiredMarker="true"
@@ -89,7 +89,7 @@
   >
   </mat-form-field>
   <button mat-flat-button color="#7763C5" type="submit" class="btn btn-primary">
-    {{ isLogin ? "Se connecter" : "S'inscrire" }}
+    {{ isLoginForm ? "Se connecter" : "S'inscrire" }}
   </button>
 </form>
 <div *ngIf="(error$ | async) as error" class="error">

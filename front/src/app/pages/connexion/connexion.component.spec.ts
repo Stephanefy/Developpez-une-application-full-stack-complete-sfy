@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { ConnexionComponent } from './connexion.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Overlay } from '@angular/cdk/overlay';
 
 describe('ConnexionComponent', () => {
   let component: ConnexionComponent;
@@ -8,7 +12,9 @@ describe('ConnexionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConnexionComponent ]
+      imports: [MatCardModule],
+      declarations: [ ConnexionComponent ],
+      providers: [provideMockStore({}), MatSnackBar, Overlay]
     })
     .compileComponents();
 

@@ -6,6 +6,8 @@ import com.openclassrooms.mddapi.services.AuthService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolationException;
+
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -22,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public User register(User user) {
+    public User register(User user) throws ConstraintViolationException {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User registeredUser = userRepository.save(user);

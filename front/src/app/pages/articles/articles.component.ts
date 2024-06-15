@@ -40,4 +40,8 @@ export class ArticlesComponent implements OnInit {
     this.sortingOrder = this.sortingOrder === 'asc' ? 'desc' : 'asc';
   }
 
+  getCurrentUser() {
+    return this.currentUser;
+  }
+
 }

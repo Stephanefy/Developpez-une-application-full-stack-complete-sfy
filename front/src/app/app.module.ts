@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +33,11 @@ import { renew } from './state/auth.actions';
 import { TranslatePipe } from './pipes/translate.pipe';
 import { BackButtonComponent } from './components/back-button/back-button.component';
 import { MaterialModule } from './material/material.module';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+
+registerLocaleData(localeFr, 'fr-FR');
 
 export function initializeApp(store: Store) {
   return (): Promise<void> => {
@@ -61,6 +66,7 @@ export function initializeApp(store: Store) {
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'fr-FR' },
     // { provide: APP_INITIALIZER, useFactory: initializeApp, deps: [Store], multi: true }
   ],
   bootstrap: [AppComponent],

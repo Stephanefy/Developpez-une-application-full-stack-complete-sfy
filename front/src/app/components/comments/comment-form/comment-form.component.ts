@@ -40,7 +40,6 @@ export class CommentFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
     private store: Store,
     private commentApiService: CommentApiService      
   ) { }
@@ -59,6 +58,11 @@ export class CommentFormComponent implements OnInit {
 
 
   submitForm(form: any): void {
+
+    if (!form.valid) {
+      return;
+    }
+
     const requestData = {
       content: this.comment.content,
       authorId: this.authorId

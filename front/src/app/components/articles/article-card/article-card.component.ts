@@ -15,7 +15,6 @@ export class ArticleCardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.article)
   }
 
 

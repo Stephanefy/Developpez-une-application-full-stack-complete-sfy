@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder, FormsModule } from '@angular/forms';
+import { provideMockStore } from '@ngrx/store/testing';
 
 import { CommentFormComponent } from './comment-form.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CommentFormComponent', () => {
   let component: CommentFormComponent;
@@ -8,7 +11,9 @@ describe('CommentFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CommentFormComponent ]
+      imports: [HttpClientTestingModule, FormsModule],
+      declarations: [ CommentFormComponent ],
+      providers: [FormBuilder, provideMockStore({})]
     })
     .compileComponents();
 

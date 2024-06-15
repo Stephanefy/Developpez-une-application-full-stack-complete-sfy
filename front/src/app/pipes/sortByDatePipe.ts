@@ -12,7 +12,6 @@ export class SortByDatePipe implements PipeTransform {
       return value;
     }
 
-    console.log("value from pipe",value)
     return value.sort((a, b) => {
       const dateA = new Date(a[property]).getTime();
       const dateB = new Date(b[property]).getTime();

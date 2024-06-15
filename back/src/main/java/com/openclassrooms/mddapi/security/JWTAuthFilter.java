@@ -64,7 +64,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
 
                 token = authHeader.substring(7);
-                username = JWTUtils.extractUsername(token);
+                username = JWTUtils.extractSubject(token);
             }
 
             // If the accessToken is null. It will pass the request to next filter in the chain.

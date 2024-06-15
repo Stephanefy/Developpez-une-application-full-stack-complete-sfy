@@ -4,8 +4,8 @@ import { User } from 'src/app/interfaces/user.interface';
 import { selectAuth } from 'src/app/state/auth.selectors';
 import { StorageService } from 'src/app/services/local-storage.service';
 import { UserApiService } from 'src/app/services/user-api.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { loginSuccess, updateUser } from 'src/app/state/auth.actions';
+import { FormBuilder, Validators } from '@angular/forms';
+import { updateUser } from 'src/app/state/auth.actions';
 
 @Component({
   selector: 'app-user-profile-form',
