@@ -33,7 +33,10 @@
       </a>
     </li>
   </ul>
-  <button class="menu-button-icon" aria-label="menu-button" (click)="showSideBar()">
+  <button 
+    *ngIf="(auth$ | async)?.isAuthenticated" 
+    class="menu-button-icon" 
+    aria-label="menu-button" (click)="showSideBar()">
     <svg
       width="24"
       height="16"

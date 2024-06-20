@@ -43,7 +43,6 @@ export class NavbarComponent implements OnInit {
   }
 
   showSideBar() {
-    console.log("reached")
     this.store.dispatch(toggleSidebar({ showSidebar: true }));
   }
 
