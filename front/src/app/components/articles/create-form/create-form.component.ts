@@ -5,6 +5,9 @@ import { Article, CreateArticle } from 'src/app/interfaces/article.interface';
 import { Theme } from 'src/app/interfaces/theme.interface';
 import { ThemeApiService } from 'src/app/services/theme-api.service';
 import { ArticleApiService } from 'src/app/services/article-api.service';
+import { LocalStorageService } from '.history/src/app/services/local-storage.service_20240410083230';
+import { StorageService } from 'src/app/services/local-storage.service';
+import { StoredUser } from 'src/app/interfaces/user.interface';
 
 @Component({
   selector: 'app-create-form',
@@ -18,14 +21,23 @@ export class CreateFormComponent implements OnInit {
   public articleForm!: FormGroup;;
   public themes$: Observable<Theme[]> = this.themeApiService.all();
   public error: string | null = null;
+  public currentUserId!: number;
 
   constructor(
     private themeApiService: ThemeApiService,
     private formBuilder: FormBuilder,
-    private articleApiService: ArticleApiService
+    private articleApiService: ArticleApiService,
+    private localStorageService: StorageService
   ) { }
 
   ngOnInit(): void {
+
+    this.localStorageService.getItem('user').subscribe((value: unknown) => {
+      if (value) {
+        const user = value as StoredUser;
+        this.currentUserId = user.userId;
+      }
+    });
 
     this.articleForm = this.formBuilder.group({
       theme_ids: [
@@ -57,7 +69,7 @@ export class CreateFormComponent implements OnInit {
       themes: [formValues.theme_ids],
       title: formValues.title,
       description: formValues.content.slice(0, 500),
-      author: "1",
+      author: this.currentUserId.toString(),
       content: formValues.content
     }
 

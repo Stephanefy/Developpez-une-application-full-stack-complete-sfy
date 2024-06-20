@@ -38,7 +38,22 @@ MDD uses a MySQL database. You'll need to have a MySQL server running and access
 Follow the `application.properties.example` file to setup your own `application.properties`file.
 Update the application.properties file in the src/main/resources directory with your database credentials `(DB_NAME, DB_USERNAME, DB_PASSWORD)`.
 
-### 3. License
+### 3. Testing the application
+
+Some fake data are already recorded in the application when the backend project is initialized. You can log in using the following fake user information:
+
+username: `userone`
+password: `aB3$dEfG`
+
+
+username: `usertwo`
+password: `Wx5!yzAb`
+
+
+username: `userthree`
+password: `Qr4#TuvW`
+
+### 4. License
 This project is licensed under the MIT License.
 
 Let me know if you'd like any further adjustments or additions to the README!

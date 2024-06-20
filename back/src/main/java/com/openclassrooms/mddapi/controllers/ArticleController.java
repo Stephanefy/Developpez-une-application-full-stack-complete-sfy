@@ -117,7 +117,6 @@ public class ArticleController {
      */
     @PostMapping()
     public ResponseEntity<?> createArticle(@Valid @RequestBody CreateArticleDTO articleDto) {
-        log.info("article themes {}",articleDto.getThemes());
         Article createdArticle;
 
         Article newArticle = modelMapper.map(articleDto, Article.class);
