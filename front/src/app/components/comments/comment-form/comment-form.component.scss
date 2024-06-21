@@ -17,10 +17,10 @@ svg {
 
 
     @include respond-to(small) {
-        width: 25px;
+        width: 80px
     }
 
     @include respond-to(xsmall) {
-        width: 25px;
+        width: 80px
     }
 }

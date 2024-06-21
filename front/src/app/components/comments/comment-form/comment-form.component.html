@@ -7,8 +7,8 @@
       matInput
       id="comment"
       name="comment"
-      [(ngModel)]="comment.content"
-      required
+      ngModel
+      #comment="ngModel"
     ></textarea>
   </mat-form-field>
   <button mat-icon-button type="submit">
