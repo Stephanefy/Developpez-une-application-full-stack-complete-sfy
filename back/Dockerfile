@@ -21,7 +21,7 @@ RUN ./mvnw dependency:go-offline -B
 COPY src src
 
 # Package the application
-RUN ./mvnw package -DskipTests
+RUN mvn -B -f pom.xml clean package -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
 
 #### Stage 2: A minimal docker image with command to run the app
@@ -33,5 +33,6 @@ ARG DEPENDENCY=/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
+COPY --from=build /workspace/target/*.jar app.jar
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.openclassrooms.mddapi"]
+ENTRYPOINT ["java", "-jar","app.jar"]
