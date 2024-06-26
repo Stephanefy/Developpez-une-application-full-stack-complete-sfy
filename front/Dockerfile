@@ -20,7 +20,7 @@ COPY . ./
 ARG configuration=production
 
 # Build the application
-RUN npm run build -- --outputPath=./dist/out --configuration $configuration
+RUN npm run build -- --output-path=./dist/out --configuration $configuration
 
 #### Stage 2, use the compiled app, ready for production with Nginx
 FROM nginx
