@@ -7,7 +7,7 @@ services:
   app-server:
     # Configuration for building the docker image for the backend service
     build:
-      context: back # Use an image built from the specified dockerfile in the `spring-boot-oauth2-social-login` directory.
+      context: back # Use an image built from the specified dockerfile in the `back` directory.
       dockerfile: Dockerfile
     ports:
       - "8080:8080" # Forward the exposed port 8080 on the container to port 8080 on the host machine
@@ -25,7 +25,7 @@ services:
   # Frontend Service 
   app-client:
     build:
-      context: front # Use an image built from the specified dockerfile in the `angular-11-social-login` directory.
+      context: front # Use an image built from the specified dockerfile in the `front` directory.
       dockerfile: Dockerfile
     ports:
       - "8081:80" # Map the exposed port 80 on the container to port 8081 on the host machine
