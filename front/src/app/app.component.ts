@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { toggleSidebar } from '../../.history/src/app/state/ui.action_20240411142434';
+import { toggleSidebar } from './state/ui.action';
 import { selectUI } from './state/ui.selectors';
 import { map } from 'rxjs';
 import { selectAuth } from './state/auth.selectors';
